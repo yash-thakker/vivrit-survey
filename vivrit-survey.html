@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivrit · Share Your Thoughts</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#031a47;
+  --navy2:#052266;
+  --violet:#787ff6;
+  --violet2:#9b9ff8;
+  --violet-dim:rgba(120,127,246,.15);
+  --violet-pale:rgba(120,127,246,.08);
+  --sky:#7dd5f6;
+  --sky2:#a8e4fa;
+  --sky-dim:rgba(125,213,246,.15);
+  --sky-pale:rgba(125,213,246,.08);
+  --white:#ffffff;
+  --off:#f5f8ff;
+  --gray:#e8eaf6;
+  --gray2:#c5c9e8;
+  --ink:#1a1d3b;
+  --ink2:#4a4e7a;
+  --ink3:#8a8fb8;
+  --red:#e8445a;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--off);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;}
+
+.prog-rail{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(3,26,71,.1);z-index:200;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--violet),var(--sky));transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
+
+/* HERO */
+.hero{background:var(--navy);padding:64px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,213,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,213,246,.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.hero-glow{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:640px;height:420px;background:radial-gradient(ellipse,rgba(120,127,246,.22) 0%,rgba(125,213,246,.08) 55%,transparent 75%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;max-width:600px;margin:0 auto;}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(125,213,246,.12);border:1px solid rgba(125,213,246,.28);border-radius:40px;padding:6px 16px;font-size:11px;font-weight:500;color:var(--sky2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--sky);animation:blink 1.8s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.hero-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
+.hero-logo-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.hero-logo-name{font-family:'Sora',sans-serif;font-size:28px;font-weight:700;color:var(--white);letter-spacing:-.02em;}
+.hero-logo-name span{color:var(--sky);}
+.hero-title{font-family:'Sora',sans-serif;font-size:clamp(24px,5vw,40px);font-weight:700;color:var(--white);line-height:1.25;letter-spacing:-.02em;margin-bottom:14px;}
+.hero-title em{color:var(--sky);font-style:normal;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
+.hero-chip{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.4);}
+.hero-chip-dot{width:3px;height:3px;border-radius:50%;background:var(--sky);display:none;}
+.hero-meta>.hero-chip+.hero-chip>.hero-chip-dot{display:block;}
+
+/* WRAP */
+.wrap{max-width:680px;margin:0 auto;padding:0 20px 80px;}
+
+/* SECTION */
+.sec{padding:44px 0 6px;display:flex;align-items:center;gap:14px;}
+.sec-n{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);flex-shrink:0;font-family:'Sora',sans-serif;}
+.sec-n.sky{color:var(--sky);}
+.sec-line{flex:1;height:1px;background:var(--gray);}
+.sec-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em;}
+.sec-sub{font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:18px;}
+
+/* CARD */
+.qc{background:var(--white);border:1.5px solid var(--gray);border-radius:20px;padding:24px;margin-bottom:10px;transition:border-color .2s,box-shadow .25s;}
+.qc:focus-within{border-color:var(--violet);box-shadow:0 0 0 4px var(--violet-dim);}
+.qc.sky-card:focus-within{border-color:var(--sky);box-shadow:0 0 0 4px var(--sky-dim);}
+.qc.err{border-color:var(--red);box-shadow:0 0 0 4px rgba(232,68,90,.1);}
+.qn{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:10px;font-family:'Sora',sans-serif;}
+.qn.sky{color:var(--sky);}
+.qt{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;color:var(--ink);line-height:1.45;margin-bottom:5px;letter-spacing:-.01em;}
+.qs{font-size:12px;color:var(--ink3);line-height:1.55;margin-bottom:14px;}
+.qreq{color:var(--red);margin-left:2px;}
+.err-txt{font-size:11px;color:var(--red);margin-top:8px;display:none;}
+.qc.err .err-txt{display:block;}
+.qc fieldset{border:none;}
+.qc legend{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;color:var(--ink);line-height:1.45;margin-bottom:12px;width:100%;letter-spacing:-.01em;}
+
+/* OPTIONS */
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opts.g2{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 15px;border:1.5px solid var(--gray);border-radius:12px;cursor:pointer;transition:all .16s;user-select:none;background:var(--white);}
+.opt:hover{border-color:var(--violet);background:var(--violet-pale);}
+.opt input{display:none;}
+.opt:has(input:checked){border-color:var(--violet);background:var(--violet-pale);}
+.sky-card .opt:has(input:checked){border-color:var(--sky);background:var(--sky-pale);}
+.sky-card .opt:hover{border-color:var(--sky);background:var(--sky-pale);}
+.sky-card .opt input:checked~.radio-dot{border-color:var(--sky);background:var(--sky);}
+.sky-card .opt input:checked~.check-sq{border-color:var(--sky);background:var(--sky);}
+.sky-card .opt input:checked~.radio-dot::after{background:var(--navy);}
+.sky-card .opt input:checked~.check-sq::after{color:var(--navy);}
+.radio-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .16s;}
+.check-sq{width:18px;height:18px;border-radius:6px;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .16s;}
+.opt input:checked~.radio-dot{border-color:var(--violet);background:var(--violet);}
+.opt input:checked~.radio-dot::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;}
+.opt input:checked~.check-sq{border-color:var(--violet);background:var(--violet);}
+.opt input:checked~.check-sq::after{content:'checkmark';font-size:0;width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);display:block;margin-top:-1px;}
+.ol{font-size:14px;color:var(--ink);line-height:1.4;font-weight:400;}
+.os{font-size:11px;color:var(--ink3);margin-top:2px;line-height:1.4;}
+
+/* LIKERT */
+.lk{margin-top:2px;}
+.lk-ends{display:flex;justify-content:space-between;margin-bottom:8px;}
+.lk-end{font-size:10px;color:var(--ink3);font-weight:500;}
+.lk-track{display:flex;gap:5px;}
+.lkb{flex:1;height:44px;border-radius:10px;border:1.5px solid var(--gray);background:var(--white);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink2);transition:all .16s;}
+.lkb:hover{border-color:var(--violet);background:var(--violet-pale);color:var(--violet);}
+.lkb.sel{border-color:var(--violet);background:var(--violet);color:#fff;}
+.sky-card .lkb:hover{border-color:var(--sky);background:var(--sky-pale);color:var(--sky);}
+.sky-card .lkb.sel{border-color:var(--sky);background:var(--sky);color:var(--navy);}
+
+/* INPUT */
+.q-input{width:100%;border:1.5px solid var(--gray);border-radius:12px;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--off);color:var(--ink);outline:none;transition:all .2s;line-height:1.5;}
+.q-input:focus{border-color:var(--violet);background:#fff;box-shadow:0 0 0 4px var(--violet-dim);}
+.q-input::placeholder{color:var(--ink3);}
+textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
+.sky-card .q-input:focus{border-color:var(--sky);box-shadow:0 0 0 4px var(--sky-dim);}
+
+/* PRICE GRID */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pc{border:1.5px solid var(--gray);border-radius:16px;padding:18px 14px 16px;cursor:pointer;transition:all .2s;text-align:left;background:var(--white);position:relative;display:flex;flex-direction:column;gap:6px;}
+.pc:hover{border-color:var(--violet);transform:translateY(-2px);box-shadow:0 8px 24px var(--violet-dim);}
+.pc.sel{border-color:var(--violet);background:var(--violet-pale);}
+.pc input{display:none;}
+.pc-badge{position:absolute;top:-9px;right:12px;font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;font-family:'Sora',sans-serif;color:#fff;}
+.pc-badge.v{background:var(--violet);}
+.pc-badge.s{background:var(--sky);color:var(--navy);}
+.pc-amt{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-.02em;}
+.pc.sel .pc-amt{color:var(--violet);}
+.pc-label{font-size:12px;font-weight:600;color:var(--ink2);font-family:'Sora',sans-serif;margin-bottom:2px;}
+.pc-includes{font-size:11px;color:var(--ink3);line-height:1.55;}
+.pc-includes li{list-style:none;padding-left:14px;position:relative;margin-bottom:2px;}
+.pc-includes li::before{content:'';position:absolute;left:2px;top:7px;width:5px;height:5px;border-radius:50%;background:var(--violet);}
+.pc.sel .pc-includes li::before{background:var(--violet);}
+
+/* NPS */
+.nps-track{display:flex;gap:4px;margin:8px 0;}
+.nps-btn{flex:1;height:42px;border-radius:9px;border:1.5px solid var(--gray);background:var(--white);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink2);transition:all .15s;}
+.nps-btn:hover{border-color:var(--violet);background:var(--violet-pale);}
+.nps-btn.sel{color:#fff;border-color:transparent;}
+.nps-btn[data-v="0"].sel,.nps-btn[data-v="1"].sel,.nps-btn[data-v="2"].sel,.nps-btn[data-v="3"].sel,.nps-btn[data-v="4"].sel,.nps-btn[data-v="5"].sel,.nps-btn[data-v="6"].sel{background:#e8445a;}
+.nps-btn[data-v="7"].sel,.nps-btn[data-v="8"].sel{background:#8a8fb8;}
+.nps-btn[data-v="9"].sel,.nps-btn[data-v="10"].sel{background:var(--sky);color:var(--navy);}
+.nps-ends{display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);}
+
+/* CONCEPT CARD */
+.concept{background:var(--navy);border-radius:20px;padding:28px 26px;margin-bottom:14px;position:relative;overflow:hidden;}
+.concept-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,213,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,213,246,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+.concept-glow{position:absolute;bottom:-60px;right:-80px;width:280px;height:280px;background:radial-gradient(ellipse,rgba(125,213,246,.12) 0%,rgba(120,127,246,.18) 60%,transparent 80%);pointer-events:none;}
+.concept-inner{position:relative;z-index:1;}
+.concept-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin-bottom:12px;font-family:'Sora',sans-serif;}
+.concept-body{font-family:'Sora',sans-serif;font-size:15px;font-weight:400;color:rgba(255,255,255,.82);line-height:1.75;margin-bottom:18px;}
+.concept-pills{display:flex;flex-wrap:wrap;gap:7px;}
+.cpill{border-radius:20px;padding:5px 12px;font-size:11px;font-weight:500;}
+.cpill.sky{background:rgba(125,213,246,.1);border:1px solid rgba(125,213,246,.25);color:var(--sky2);}
+.cpill.vio{background:rgba(120,127,246,.12);border:1px solid rgba(120,127,246,.28);color:var(--violet2);}
+
+/* FREE TRIAL SECTION */
+.trial-card{background:linear-gradient(135deg,var(--navy) 0%,#0a2a6e 100%);border-radius:24px;padding:32px 28px;margin-bottom:10px;position:relative;overflow:hidden;}
+.trial-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,213,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,213,246,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.trial-glow{position:absolute;top:-80px;right:-60px;width:300px;height:300px;background:radial-gradient(ellipse,rgba(125,213,246,.15) 0%,transparent 65%);pointer-events:none;}
+.trial-inner{position:relative;z-index:1;}
+.trial-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(125,213,246,.15);border:1px solid rgba(125,213,246,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--sky);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;font-family:'Sora',sans-serif;}
+.trial-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--sky);}
+.trial-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px;letter-spacing:-.01em;}
+.trial-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:24px;}
+.trial-fields{display:flex;flex-direction:column;gap:10px;}
+.trial-field{display:flex;flex-direction:column;gap:6px;}
+.trial-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sky2);font-family:'Sora',sans-serif;}
+.trial-input{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--white);outline:none;transition:all .2s;width:100%;}
+.trial-input::placeholder{color:rgba(255,255,255,.3);}
+.trial-input:focus{border-color:var(--sky);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(125,213,246,.2);}
+.trial-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.trial-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:16px;line-height:1.6;text-align:center;}
+.trial-interest{display:flex;align-items:flex-start;gap:12px;background:rgba(125,213,246,.08);border:1px solid rgba(125,213,246,.2);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .18s;margin-bottom:20px;}
+.trial-interest:hover{background:rgba(125,213,246,.12);}
+.trial-interest input{display:none;}
+.trial-check{width:20px;height:20px;border-radius:6px;border:2px solid rgba(125,213,246,.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px;}
+.trial-interest input:checked~.trial-check{background:var(--sky);border-color:var(--sky);}
+.trial-interest input:checked~.trial-check::after{content:'';width:10px;height:6px;border-left:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(-45deg);display:block;margin-top:-1px;}
+.trial-interest-txt{font-size:14px;color:var(--white);line-height:1.5;}
+.trial-interest-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;line-height:1.4;}
+
+/* SUBMIT */
+.submit-zone{text-align:center;padding:40px 0 20px;}
+.prog-ring{width:64px;height:64px;margin:0 auto 20px;position:relative;display:flex;align-items:center;justify-content:center;}
+.prog-ring svg{position:absolute;inset:-2px;transform:rotate(-90deg);}
+.prog-ring circle{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset .5s ease;}
+.prog-pct{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--navy);}
+.submit-title{font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--navy);letter-spacing:-.02em;margin-bottom:8px;}
+.submit-sub{font-size:14px;color:var(--ink2);line-height:1.65;max-width:400px;margin:0 auto 28px;}
+.btn-sub{background:linear-gradient(135deg,var(--violet),var(--sky));color:var(--navy);border:none;padding:16px 52px;border-radius:40px;font-family:'Sora',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .22s;display:inline-flex;align-items:center;gap:10px;letter-spacing:.01em;}
+.btn-sub:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(125,213,246,.3);filter:brightness(1.06);}
+.btn-sub:active{transform:scale(.97);}
+.submit-note{font-size:11px;color:var(--ink3);margin-top:12px;}
+
+/* THANK YOU */
+.ty{display:none;text-align:center;padding:80px 24px;max-width:540px;margin:0 auto;}
+.ty.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.ty-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:1.5px solid rgba(125,213,246,.2);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 24px;animation:fadeUp .5s ease both;}
+.ty-title{font-family:'Sora',sans-serif;font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.02em;margin-bottom:10px;animation:fadeUp .5s ease .08s both;}
+.ty-sub{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:24px;animation:fadeUp .5s ease .16s both;}
+.ty-box{background:var(--navy);border-radius:18px;padding:24px;text-align:left;animation:fadeUp .5s ease .24s both;position:relative;overflow:hidden;margin-bottom:14px;}
+.ty-box-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,213,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,213,246,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.ty-box-inner{position:relative;z-index:1;}
+.ty-box-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin-bottom:10px;font-family:'Sora',sans-serif;}
+.ty-box-txt{font-family:'Sora',sans-serif;font-size:16px;color:rgba(255,255,255,.85);line-height:1.65;font-weight:400;}
+.ty-trial-note{background:var(--sky-pale);border:1px solid var(--sky-dim);border-radius:16px;padding:18px 20px;font-size:13px;color:var(--ink2);line-height:1.65;animation:fadeUp .5s ease .34s both;}
+.ty-trial-note strong{color:var(--navy);font-weight:600;}
+
+@media(max-width:480px){
+  .opts.g2{grid-template-columns:1fr;}
+  .nps-btn{font-size:11px;height:38px;}
+  .price-grid{grid-template-columns:1fr 1fr;}
+  .trial-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute;pointer-events:none;">
+  <defs>
+    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#787ff6"/>
+      <stop offset="100%" stop-color="#7dd5f6"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="prog-rail"><div class="prog-fill" id="pfill"></div></div>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-pill"><span class="hero-pill-dot"></span>Parent and Educator Survey</div>
+    <div class="hero-logo">
+      <div class="hero-logo-mark">🌱</div>
+      <div class="hero-logo-name">Vivrit<span>.</span></div>
+    </div>
+    <h1 class="hero-title">Built for little learners.<br><em>Shaped by you.</em></h1>
+    <p class="hero-sub">Vivrit helps children aged 2 to 10 grow through purposeful screen time. Three minutes of your honest thoughts will shape whether and how we build this for preschools and young families.</p>
+    <div class="hero-meta">
+      <div class="hero-chip">Anonymous</div>
+      <div class="hero-chip"><div class="hero-chip-dot"></div>3 to 4 minutes</div>
+      <div class="hero-chip"><div class="hero-chip-dot"></div>18 questions</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="form">
+<!-- honeypot: hidden from real users, bots fill this in -->
+<input type="text" name="_hp" style="display:none;position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+
+  <!-- SECTION 1 -->
+  <div class="sec"><span class="sec-n">01</span><div class="sec-line"></div></div>
+  <div class="sec-title">About you</div>
+  <div class="sec-sub">A quick picture of who you are and who you are speaking for.</div>
+
+  <div class="qc fade-card" id="qc1">
+    <div class="qn">Q1</div>
+    <fieldset>
+      <legend>What is your role?<span class="qreq">*</span></legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="parent"><div class="radio-dot"></div><div><div class="ol">Parent or caregiver</div><div class="os">My child is aged 2 to 10</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="preschool_leader"><div class="radio-dot"></div><div><div class="ol">Preschool or daycare owner or principal</div><div class="os">I run or lead an early childhood centre</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="teacher"><div class="radio-dot"></div><div><div class="ol">Preschool or primary teacher</div><div class="os">I work with children aged 2 to 10 daily</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="both"><div class="radio-dot"></div><div class="ol">I am both a parent and an educator</div></label>
+      </div>
+    </fieldset>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <div class="qc fade-card" id="qc2">
+    <div class="qn">Q2</div>
+    <fieldset>
+      <legend>How old is your child or the children you work with?<span class="qreq">*</span></legend>
+      <div class="opts g2">
+        <label class="opt"><input type="radio" name="q2" value="2to3"><div class="radio-dot"></div><span class="ol">Ages 2 to 3</span></label>
+        <label class="opt"><input type="radio" name="q2" value="3to5"><div class="radio-dot"></div><span class="ol">Ages 3 to 5</span></label>
+        <label class="opt"><input type="radio" name="q2" value="6to8"><div class="radio-dot"></div><span class="ol">Ages 6 to 8</span></label>
+        <label class="opt"><input type="radio" name="q2" value="9to10"><div class="radio-dot"></div><span class="ol">Ages 9 to 10</span></label>
+      </div>
+    </fieldset>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc3">
+    <div class="qn sky">Q3</div>
+    <fieldset>
+      <legend>How much screen time does your child or the children in your care get on average each day?<span class="qreq">*</span></legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="under1"><div class="radio-dot"></div><span class="ol">Less than 1 hour</span></label>
+        <label class="opt"><input type="radio" name="q3" value="1to2"><div class="radio-dot"></div><span class="ol">1 to 2 hours</span></label>
+        <label class="opt"><input type="radio" name="q3" value="2to4"><div class="radio-dot"></div><span class="ol">2 to 4 hours</span></label>
+        <label class="opt"><input type="radio" name="q3" value="over4"><div class="radio-dot"></div><span class="ol">More than 4 hours</span></label>
+      </div>
+    </fieldset>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="sec"><span class="sec-n sky">02</span><div class="sec-line"></div></div>
+  <div class="sec-title">The problem</div>
+  <div class="sec-sub">We want to understand how strongly you feel this. There are no right answers here.</div>
+
+  <div class="qc fade-card" id="qc4">
+    <div class="qn">Q4</div>
+    <p class="qt">How concerned are you about the quality of what young children consume on screen?<span class="qreq">*</span></p>
+    <div class="lk">
+      <div class="lk-ends"><span class="lk-end">Not concerned</span><span class="lk-end">Very concerned</span></div>
+      <div class="lk-track">
+        <button type="button" class="lkb" data-q="4" data-v="1">1</button>
+        <button type="button" class="lkb" data-q="4" data-v="2">2</button>
+        <button type="button" class="lkb" data-q="4" data-v="3">3</button>
+        <button type="button" class="lkb" data-q="4" data-v="4">4</button>
+        <button type="button" class="lkb" data-q="4" data-v="5">5</button>
+      </div>
+    </div>
+    <div class="err-txt">Please select a rating.</div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc5">
+    <div class="qn sky">Q5</div>
+    <p class="qt">What kind of content do young children in your home or classroom most commonly watch?</p>
+    <p class="qs">Select all that apply.</p>
+    <div class="opts">
+      <label class="opt"><input type="checkbox" name="q5" value="youtube"><div class="check-sq"></div><div><div class="ol">YouTube Kids or regular YouTube</div></div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="ott"><div class="check-sq"></div><div class="ol">Netflix, Disney Plus or similar OTT shows</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="ed_apps"><div class="check-sq"></div><div class="ol">Educational apps like BYJU's or Khan Academy Kids</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="games"><div class="check-sq"></div><div class="ol">Mobile games</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="limited"><div class="check-sq"></div><div class="ol">We keep screen time very limited</div></label>
+    </div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc6">
+    <div class="qn sky">Q6</div>
+    <p class="qt">Do you notice unregulated screen time affecting young children in visible ways?<span class="qreq">*</span></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q6" value="yes_clearly"><div class="radio-dot"></div><div><div class="ol">Yes, clearly</div><div class="os">Shorter attention, emotional meltdowns, sleep issues</div></div></label>
+      <label class="opt"><input type="radio" name="q6" value="somewhat"><div class="radio-dot"></div><div class="ol">Somewhat. I notice it but cannot always separate the cause.</div></label>
+      <label class="opt"><input type="radio" name="q6" value="not_sure"><div class="radio-dot"></div><div class="ol">Not sure. I do not have enough information yet.</div></label>
+      <label class="opt"><input type="radio" name="q6" value="no"><div class="radio-dot"></div><div class="ol">No. I do not see a clear connection.</div></label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="sec"><span class="sec-n">03</span><div class="sec-line"></div></div>
+  <div class="sec-title">Meet Vivrit</div>
+  <div class="sec-sub">Read this carefully. Then tell us what you honestly think.</div>
+
+  <div class="concept">
+    <div class="concept-grid"></div>
+    <div class="concept-glow"></div>
+    <div class="concept-inner">
+      <div class="concept-eyebrow">What Vivrit is</div>
+      <p class="concept-body">A child development platform built for children aged 2 to 10. It replaces passive content like YouTube Kids and Netflix cartoons with psychologist-certified stories, interactive games, and focus building activities. Every piece of content is matched to your child's age and developmental stage. Parents get a weekly dashboard showing what their child engaged with and what it is building in them. Preschools partner with Vivrit to extend their learning philosophy into the home.</p>
+      <div class="concept-pills">
+        <span class="cpill sky">Built for ages 2 to 10</span>
+        <span class="cpill vio">Psychologist certified</span>
+        <span class="cpill sky">Age matched stories and games</span>
+        <span class="cpill vio">Weekly parent insight dashboard</span>
+        <span class="cpill sky">Replaces passive OTT content</span>
+        <span class="cpill vio">No ads and no algorithm</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="qc fade-card" id="qc7">
+    <div class="qn">Q7</div>
+    <p class="qt">What is your honest first reaction to Vivrit?<span class="qreq">*</span></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q7" value="need_this"><div class="radio-dot"></div><div><div class="ol">This is exactly what I have been looking for</div><div class="os">I would sign up or recommend it right away</div></div></label>
+      <label class="opt"><input type="radio" name="q7" value="interesting"><div class="radio-dot"></div><div class="ol">Interesting. I would want to know more before deciding.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="maybe"><div class="radio-dot"></div><div class="ol">Maybe. I have real questions about how it works in practice.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="unlikely"><div class="radio-dot"></div><div class="ol">Unlikely that I would use or recommend this.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="no"><div class="radio-dot"></div><div class="ol">Definitely not for us.</div></label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <div class="qc fade-card" id="qc8">
+    <div class="qn">Q8</div>
+    <p class="qt">How much does this idea resonate with you?<span class="qreq">*</span></p>
+    <p class="qs">Your school's learning approach should not stop when your child gets home. Vivrit carries it forward into every evening and every weekend.</p>
+    <div class="lk">
+      <div class="lk-ends"><span class="lk-end">Does not resonate</span><span class="lk-end">Resonates strongly</span></div>
+      <div class="lk-track">
+        <button type="button" class="lkb" data-q="8" data-v="1">1</button>
+        <button type="button" class="lkb" data-q="8" data-v="2">2</button>
+        <button type="button" class="lkb" data-q="8" data-v="3">3</button>
+        <button type="button" class="lkb" data-q="8" data-v="4">4</button>
+        <button type="button" class="lkb" data-q="8" data-v="5">5</button>
+      </div>
+    </div>
+    <div class="err-txt">Please select a rating.</div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc9">
+    <div class="qn sky">Q9</div>
+    <p class="qt">How credible is it to you that content reviewed by child psychologists would be meaningfully different?<span class="qreq">*</span></p>
+    <div class="lk">
+      <div class="lk-ends"><span class="lk-end">Not credible at all</span><span class="lk-end">Very credible</span></div>
+      <div class="lk-track">
+        <button type="button" class="lkb" data-q="9" data-v="1">1</button>
+        <button type="button" class="lkb" data-q="9" data-v="2">2</button>
+        <button type="button" class="lkb" data-q="9" data-v="3">3</button>
+        <button type="button" class="lkb" data-q="9" data-v="4">4</button>
+        <button type="button" class="lkb" data-q="9" data-v="5">5</button>
+      </div>
+    </div>
+    <div class="err-txt">Please select a rating.</div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="sec"><span class="sec-n sky">04</span><div class="sec-line"></div></div>
+  <div class="sec-title">Pricing</div>
+  <div class="sec-sub">Four honest options. Pick what reflects your real view, not what sounds reasonable.</div>
+
+  <div class="qc sky-card fade-card" id="qc10">
+    <div class="qn sky">Q10</div>
+    <p class="qt">How much does your family currently spend on learning or enrichment apps per month?<span class="qreq">*</span></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q10" value="zero"><div class="radio-dot"></div><span class="ol">Nothing. We do not pay for apps.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="under500"><div class="radio-dot"></div><span class="ol">Under 500 rupees</span></label>
+      <label class="opt"><input type="radio" name="q10" value="500to1500"><div class="radio-dot"></div><span class="ol">500 to 1500 rupees</span></label>
+      <label class="opt"><input type="radio" name="q10" value="over1500"><div class="radio-dot"></div><span class="ol">More than 1500 rupees. We invest actively in ed-tech.</span></label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <div class="qc fade-card" id="qc11">
+    <div class="qn">Q11</div>
+    <p class="qt">Which Vivrit plan feels right for your family?<span class="qreq">*</span></p>
+    <p class="qs">All plans include full access to age matched stories, games and the parent dashboard. Higher plans add more content depth and personalisation.</p>
+    <div class="price-grid">
+      <label class="pc" onclick="selPC(this)">
+        <input type="radio" name="q11" value="starter_1599">
+        <div class="pc-label">Starter</div>
+        <div class="pc-amt">1,599 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
+        <ul class="pc-includes">
+          <li>200 plus stories and activities</li>
+          <li>Age matched content for 1 child</li>
+          <li>Weekly parent summary</li>
+        </ul>
+      </label>
+      <label class="pc" onclick="selPC(this)">
+        <div class="pc-badge v">POPULAR</div>
+        <input type="radio" name="q11" value="grow_2499">
+        <div class="pc-label">Grow</div>
+        <div class="pc-amt">2,499 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
+        <ul class="pc-includes">
+          <li>500 plus stories, games and brain activities</li>
+          <li>2 child profiles</li>
+          <li>Emotion Explorer sessions</li>
+          <li>School curriculum tags</li>
+        </ul>
+      </label>
+      <label class="pc" onclick="selPC(this)">
+        <div class="pc-badge s">BEST VALUE</div>
+        <input type="radio" name="q11" value="thrive_3499">
+        <div class="pc-label">Thrive</div>
+        <div class="pc-amt">3,499 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
+        <ul class="pc-includes">
+          <li>Full content library</li>
+          <li>3 child profiles</li>
+          <li>Focus and attention game tracks</li>
+          <li>Developmental milestone reports</li>
+          <li>Priority support</li>
+        </ul>
+      </label>
+      <label class="pc" onclick="selPC(this)">
+        <input type="radio" name="q11" value="family_4999">
+        <div class="pc-label">Family</div>
+        <div class="pc-amt">4,999 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
+        <ul class="pc-includes">
+          <li>Everything in Thrive</li>
+          <li>Up to 5 child profiles</li>
+          <li>Monthly 1 on 1 child development check in</li>
+          <li>Early access to new content</li>
+        </ul>
+      </label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc12">
+    <div class="qn sky">Q12</div>
+    <p class="qt">How does Vivrit pricing compare to what you spend on similar enrichment for your child?<span class="qreq">*</span></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q12" value="much_less"><div class="radio-dot"></div><span class="ol">Much less than a typical class or activity</span></label>
+      <label class="opt"><input type="radio" name="q12" value="comparable"><div class="radio-dot"></div><span class="ol">Similar to one book box or outing per month</span></label>
+      <label class="opt"><input type="radio" name="q12" value="high"><div class="radio-dot"></div><span class="ol">Feels high for a digital product</span></label>
+      <label class="opt"><input type="radio" name="q12" value="too_much"><div class="radio-dot"></div><span class="ol">Too expensive regardless of what is included</span></label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="sec"><span class="sec-n">05</span><div class="sec-line"></div></div>
+  <div class="sec-title">Concerns and blockers</div>
+  <div class="sec-sub">Honest blockers are the most useful data we can collect. Please do not soften your answers.</div>
+
+  <div class="qc fade-card" id="qc13">
+    <div class="qn">Q13</div>
+    <p class="qt">What would most likely stop you from subscribing to Vivrit? <span style="color:var(--ink3);font-size:13px;">(Choose up to 3)</span></p>
+    <div class="opts">
+      <label class="opt"><input type="checkbox" name="q13" value="screen_time"><div class="check-sq"></div><span class="ol">My child already has enough screen time. Adding more feels wrong.</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="price"><div class="check-sq"></div><span class="ol">The price is beyond what I am comfortable spending</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="trust"><div class="check-sq"></div><span class="ol">I would need to see the product before trusting it with my child</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="child_resist"><div class="check-sq"></div><span class="ol">My child would prefer YouTube. Getting them to switch feels hard.</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="not_urgent"><div class="check-sq"></div><span class="ol">My child is young and this does not feel urgent yet</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="nothing"><div class="check-sq"></div><span class="ol">Nothing would stop me. I would sign up right away.</span></label>
+    </div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc14">
+    <div class="qn sky">Q14</div>
+    <p class="qt">How worried are you that an app like Vivrit would just add to screen time rather than replace existing passive viewing?<span class="qreq">*</span></p>
+    <div class="lk">
+      <div class="lk-ends"><span class="lk-end">Not worried</span><span class="lk-end">Very worried</span></div>
+      <div class="lk-track">
+        <button type="button" class="lkb" data-q="14" data-v="1">1</button>
+        <button type="button" class="lkb" data-q="14" data-v="2">2</button>
+        <button type="button" class="lkb" data-q="14" data-v="3">3</button>
+        <button type="button" class="lkb" data-q="14" data-v="4">4</button>
+        <button type="button" class="lkb" data-q="14" data-v="5">5</button>
+      </div>
+    </div>
+    <div class="err-txt">Please select a rating.</div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="sec"><span class="sec-n sky">06</span><div class="sec-line"></div></div>
+  <div class="sec-title">Your verdict</div>
+  <div class="sec-sub">Say exactly what you think. Critical feedback is more valuable than polite validation.</div>
+
+  <div class="qc fade-card" id="qc15">
+    <div class="qn">Q15</div>
+    <p class="qt">What would Vivrit need to get right above everything else for you to pay for it?</p>
+    <textarea class="q-input" name="q15" placeholder="For example: My child uses it happily without needing to be coerced. The content genuinely feels different from what they already watch. I notice real improvements in their focus or emotional awareness after a few weeks..." rows="4"></textarea>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc16">
+    <div class="qn sky">Q16</div>
+    <p class="qt">Is there anything about this concept that makes you uncomfortable or sceptical?</p>
+    <p class="qs">No judgment here. Honest concerns are the most valuable thing you can share.</p>
+    <textarea class="q-input" name="q16" placeholder="For example: Still feels like screen time to me. Not sure the psychologist label means much in practice. Worried my child would lose interest in two weeks..." rows="3"></textarea>
+  </div>
+
+  <div class="qc fade-card" id="qc17">
+    <div class="qn">Q17</div>
+    <p class="qt">If Vivrit launched tomorrow, how likely would you be to recommend it to another parent?<span class="qreq">*</span></p>
+    <p class="qs">0 means you would actively warn others away. 10 means you would recommend it without hesitation.</p>
+    <div class="nps-track" id="nps-track"></div>
+    <div class="nps-ends"><span>Not at all</span><span>Neutral</span><span>Absolutely</span></div>
+    <input type="hidden" name="q17" id="q17val">
+    <div class="err-txt">Please select a score.</div>
+  </div>
+
+  <div class="qc sky-card fade-card" id="qc18">
+    <div class="qn sky">Q18</div>
+    <p class="qt">Overall, what is your honest assessment of this idea?<span class="qreq">*</span></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q18" value="strong_yes"><div class="radio-dot"></div><div><div class="ol">Strong yes. Real problem, right solution.</div><div class="os">I would be among the first to use or recommend this</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="yes_if"><div class="radio-dot"></div><div><div class="ol">Yes, if it delivers on its promises</div><div class="os">The idea is right. Execution has to be excellent.</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="niche"><div class="radio-dot"></div><div><div class="ol">Niche but valid</div><div class="os">Not right for us, but I can see clearly who it is for</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="wrong_approach"><div class="radio-dot"></div><div><div class="ol">Right problem, different solution needed</div><div class="os">The issue is real but this approach does not quite fit</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="no_problem"><div class="radio-dot"></div><span class="ol">I do not see what problem this is solving</span></label>
+    </div>
+    <div class="err-txt">Please select one option.</div>
+  </div>
+
+  <!-- SECTION 7: FREE TRIAL -->
+  <div class="sec"><span class="sec-n">07</span><div class="sec-line"></div></div>
+  <div class="sec-title">Try Vivrit for free</div>
+  <div class="sec-sub">Everything below is completely optional. But if you are curious, we would love to put the product in your hands first.</div>
+
+  <div class="trial-card">
+    <div class="trial-grid"></div>
+    <div class="trial-glow"></div>
+    <div class="trial-inner">
+      <label class="trial-interest">
+        <input type="checkbox" name="wants_trial" value="yes" id="trial-toggle" onchange="toggleTrialFields()">
+        <div class="trial-check"></div>
+        <div>
+          <div class="trial-interest-txt">Yes, I want to test Vivrit for free before it launches</div>
+          <div class="trial-interest-sub">We will give you one full term of access at no cost. All we ask for is honest feedback.</div>
+        </div>
+      </label>
+
+      <div id="trial-fields" style="display:none;">
+        <div class="trial-badge"><span class="trial-badge-dot"></span>Optional details</div>
+        <p class="trial-sub">Share as much or as little as you like. Every field below is optional. We only use this to reach out with your free access link.</p>
+        <div class="trial-fields">
+          <div class="trial-row">
+            <div class="trial-field">
+              <div class="trial-label">Your name</div>
+              <input class="trial-input" type="text" name="trial_name" placeholder="First name is enough">
+            </div>
+            <div class="trial-field">
+              <div class="trial-label">Your child's age</div>
+              <input class="trial-input" type="text" name="trial_child_age" placeholder="e.g. 4 years old">
+            </div>
+          </div>
+          <div class="trial-row">
+            <div class="trial-field">
+              <div class="trial-label">City</div>
+              <input class="trial-input" type="text" name="trial_city" placeholder="Where are you based?">
+            </div>
+            <div class="trial-field">
+              <div class="trial-label">School or preschool name</div>
+              <input class="trial-input" type="text" name="trial_school" placeholder="Optional">
+            </div>
+          </div>
+          <div class="trial-field">
+            <div class="trial-label">Best way to reach you</div>
+            <input class="trial-input" type="text" name="trial_contact" placeholder="Phone number or email address">
+          </div>
+        </div>
+        <div class="trial-note">We will never share your details. No spam. Just a free access link and a short follow up call if you want one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-zone">
+    <div class="prog-ring">
+      <svg viewBox="0 0 68 68" width="68" height="68">
+        <circle cx="34" cy="34" r="32" id="rcircle" stroke="url(#rg)"/>
+      </svg>
+      <span class="prog-pct" id="rpct">0%</span>
+    </div>
+    <div class="submit-title">You are done.</div>
+    <div class="submit-sub">Your responses are anonymous unless you chose to share your details above. Every answer shapes what Vivrit builds and whether we build it at all.</div>
+    <button type="button" class="btn-sub" onclick="submitForm()">
+      Submit my responses
+      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,8 13,8"/><polyline points="9,4 13,8 9,12"/></svg>
+    </button>
+    <div class="submit-note">Anonymous by default. No account needed. Research use only.</div>
+  </div>
+
+</div>
+
+<div class="ty" id="ty">
+  <div class="ty-icon">🌱</div>
+  <h2 class="ty-title">Thank you.</h2>
+  <p class="ty-sub">Your responses are in. Every honest answer helps us build something genuinely useful for young children and their families, or tells us clearly when to stop.</p>
+  <div class="ty-box">
+    <div class="ty-box-grid"></div>
+    <div class="ty-box-inner">
+      <div class="ty-box-lbl">Your verdict</div>
+      <div class="ty-box-txt" id="ty-msg">Every honest response makes the next decision better.</div>
+    </div>
+  </div>
+  <div class="ty-trial-note" id="ty-trial-note" style="display:none;">
+    <strong>We received your free trial request.</strong> A member of our team will reach out within 2 to 3 working days with your access link. Thank you for being an early believer in this.
+  </div>
+</div>
+
+<script>
+// NPS
+document.getElementById('nps-track').innerHTML =
+  Array.from({length:11},(_,i)=>
+    `<button type="button" class="nps-btn" data-v="${i}" onclick="selNPS(${i})">${i}</button>`
+  ).join('');
+
+function selNPS(v){
+  document.querySelectorAll('.nps-btn').forEach(b=>b.classList.remove('sel'));
+  document.querySelector(`.nps-btn[data-v="${v}"]`).classList.add('sel');
+  document.getElementById('q17val').value=v;
+  document.getElementById('qc17').classList.remove('err');
+  tick();
+}
+
+// Likerts
+document.querySelectorAll('.lkb').forEach(b=>{
+  b.addEventListener('click',function(){
+    const q=this.dataset.q;
+    document.querySelectorAll(`.lkb[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));
+    this.classList.add('sel');
+    document.getElementById('qc'+q)?.classList.remove('err');
+    tick();
+  });
+});
+
+// Radios and checkboxes
+document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(i=>{
+  i.addEventListener('change',()=>{
+    i.closest('.qc')?.classList.remove('err');
+    tick();
+  });
+});
+
+// Price cards
+function selPC(el){
+  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  el.querySelector('input').checked=true;
+  document.getElementById('qc11').classList.remove('err');
+  tick();
+}
+
+// Checkbox limit Q13
+document.querySelectorAll('input[name="q13"]').forEach(cb=>{
+  cb.addEventListener('change',()=>{
+    const checked=[...document.querySelectorAll('input[name="q13"]:checked')];
+    if(checked.length>3) cb.checked=false;
+  });
+});
+
+// Trial fields toggle
+function toggleTrialFields(){
+  const checked=document.getElementById('trial-toggle').checked;
+  document.getElementById('trial-fields').style.display=checked?'block':'none';
+}
+
+// Progress
+const REQ=['q1','q2','q3','q4','q6','q7','q8','q9','q10','q11','q12','q14','q17','q18'];
+function countDone(){
+  return REQ.filter(q=>{
+    if(['q4','q8','q9','q14'].includes(q))
+      return document.querySelector(`.lkb[data-q="${q.slice(1)}"].sel`);
+    if(q==='q17') return document.getElementById('q17val').value!=='';
+    return document.querySelector(`input[name="${q}"]:checked`);
+  }).length;
+}
+function tick(){
+  const n=countDone(),t=REQ.length,p=Math.round(n/t*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('rpct').textContent=p+'%';
+  const c=document.getElementById('rcircle');
+  if(c) c.style.strokeDashoffset=201-(201*p/100);
+}
+
+// Validate
+function validate(){
+  let ok=true;
+  ['q1','q2','q3','q6','q7','q10','q11','q12','q18'].forEach(q=>{
+    if(!document.querySelector(`input[name="${q}"]:checked`)){
+      document.getElementById('qc'+q.slice(1))?.classList.add('err');
+      ok=false;
+    }
+  });
+  ['4','8','9','14'].forEach(q=>{
+    if(!document.querySelector(`.lkb[data-q="${q}"].sel`)){
+      document.getElementById('qc'+q)?.classList.add('err');
+      ok=false;
+    }
+  });
+  if(!document.getElementById('q17val').value){
+    document.getElementById('qc17').classList.add('err');
+    ok=false;
+  }
+  if(!ok) document.querySelector('.qc.err')?.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+
+// Collect
+function collect(){
+  const d={ts:new Date().toISOString(),_hp:document.querySelector('[name="_hp"]').value};
+  document.querySelectorAll('input[type=radio]:checked').forEach(r=>{d[r.name]=r.value;});
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>{
+    if(c.name==='wants_trial'||c.name==='q13'){
+      if(!d[c.name]) d[c.name]=[];
+      if(c.checked) d[c.name].push(c.value);
+    }
+  });
+  document.querySelectorAll('input[name="q5"]').forEach(c=>{
+    if(!d['q5']) d['q5']=[];
+    if(c.checked) d['q5'].push(c.value);
+  });
+  document.querySelectorAll('.lkb.sel').forEach(b=>{d['q'+b.dataset.q]=parseInt(b.dataset.v);});
+  d.q17_nps=document.getElementById('q17val').value;
+  ['q15','q16','trial_name','trial_child_age','trial_city','trial_school','trial_contact'].forEach(n=>{
+    const el=document.querySelector(`[name="${n}"]`);
+    if(el&&el.value) d[n]=el.value;
+  });
+  return d;
+}
+
+// Submit
+async function submitForm(){
+  if(!validate()) return;
+  const r=collect();
+
+  const btn=document.querySelector('.btn-sub');
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+
+  try{
+    const res=await fetch('/.netlify/functions/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(r)
+    });
+    if(!res.ok) throw new Error('Server error '+res.status);
+  }catch(e){
+    console.error('Submission error:',e);
+    btn.disabled=false;
+    btn.textContent='Submit my responses';
+    alert('Something went wrong. Please try again.');
+    return;
+  }
+
+  btn.disabled=false;
+
+  const msgs={
+    strong_yes:'You see a real problem and believe this is the right solution. That is the clearest signal we can receive and we will build accordingly.',
+    yes_if:'Yes if it delivers is the most useful answer we can get. It means the problem is real and the bar is high. We have noted what matters most to you.',
+    niche:'Knowing exactly who it is for and who it is not for is more valuable than broad but shallow enthusiasm. This sharpens how we go to market.',
+    wrong_approach:'The hardest feedback to hear and the most important. Thank you for saying it plainly rather than being polite about it.',
+    no_problem:'This is exactly what we needed to hear. If the problem is not felt, nothing else matters. Your honesty saves significant time.'
+  };
+  document.getElementById('ty-msg').textContent=msgs[r.q18]||'Every honest response makes the next decision better.';
+
+  const wantsTrial=r['wants_trial']&&r['wants_trial'].includes('yes');
+  if(wantsTrial) document.getElementById('ty-trial-note').style.display='block';
+
+  document.getElementById('form').style.display='none';
+  document.getElementById('ty').classList.add('show');
+  document.getElementById('pfill').style.width='100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+tick();
+</script>
+</body>
+</html>
