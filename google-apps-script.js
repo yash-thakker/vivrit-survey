@@ -23,7 +23,9 @@ const HEADERS = [
   'trial_child_age',
   'trial_city',
   'trial_school',
-  'trial_contact'
+  'trial_email',
+  'trial_phone_prefix',
+  'trial_phone'
 ];
 
 function doPost(e) {
@@ -65,7 +67,9 @@ function doPost(e) {
         trial_child_age:        'trial_child_age',
         trial_city:             'trial_city',
         trial_school:           'trial_school',
-        trial_contact:          'trial_contact'
+        trial_email:            'trial_email',
+        trial_phone_prefix:     'trial_phone_prefix',
+        trial_phone:            'trial_phone'
       };
       const key = keyMap[h] || h;
       const val = data[key];

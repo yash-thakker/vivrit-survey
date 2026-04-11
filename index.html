@@ -201,16 +201,24 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
 .ty{display:none;text-align:center;padding:80px 24px;max-width:540px;margin:0 auto;}
 .ty.show{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.ty-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:1.5px solid rgba(125,213,246,.2);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 24px;animation:fadeUp .5s ease both;}
+.ty-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;animation:fadeUp .5s ease both;}
+.ty-logo-mark{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 24px rgba(120,127,246,.3);}
+.ty-logo-name{font-family:'Sora',sans-serif;font-size:30px;font-weight:700;color:var(--navy);letter-spacing:-.02em;}
+.ty-logo-name span{color:var(--sky);}
 .ty-title{font-family:'Sora',sans-serif;font-size:32px;font-weight:700;color:var(--navy);letter-spacing:-.02em;margin-bottom:10px;animation:fadeUp .5s ease .08s both;}
 .ty-sub{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:24px;animation:fadeUp .5s ease .16s both;}
-.ty-box{background:var(--navy);border-radius:18px;padding:24px;text-align:left;animation:fadeUp .5s ease .24s both;position:relative;overflow:hidden;margin-bottom:14px;}
-.ty-box-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(125,213,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,213,246,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
-.ty-box-inner{position:relative;z-index:1;}
-.ty-box-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin-bottom:10px;font-family:'Sora',sans-serif;}
-.ty-box-txt{font-family:'Sora',sans-serif;font-size:16px;color:rgba(255,255,255,.85);line-height:1.65;font-weight:400;}
-.ty-trial-note{background:var(--sky-pale);border:1px solid var(--sky-dim);border-radius:16px;padding:18px 20px;font-size:13px;color:var(--ink2);line-height:1.65;animation:fadeUp .5s ease .34s both;}
+.ty-trial-note{background:var(--sky-pale);border:1px solid var(--sky-dim);border-radius:16px;padding:18px 20px;font-size:13px;color:var(--ink2);line-height:1.65;animation:fadeUp .5s ease .24s both;}
 .ty-trial-note strong{color:var(--navy);font-weight:600;}
+.ty-share{margin-top:20px;animation:fadeUp .5s ease .32s both;}
+.ty-share-txt{font-size:13px;color:var(--ink3);margin-bottom:12px;}
+.btn-share{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--violet),var(--sky));color:var(--navy);border:none;padding:14px 30px;border-radius:40px;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s;letter-spacing:.01em;}
+.btn-share:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(125,213,246,.3);filter:brightness(1.06);}
+.ty-copied{font-size:12px;color:var(--violet);margin-top:10px;opacity:0;transition:opacity .3s;}
+.ty-copied.show{opacity:1;}
+/* PHONE ROW */
+.phone-row{display:flex;gap:8px;}
+.phone-prefix{width:114px;flex-shrink:0;cursor:pointer;}
+.phone-row .trial-input:last-child{flex:1;min-width:0;}
 
 @media(max-width:480px){
   .opts.g2{grid-template-columns:1fr;}
@@ -543,14 +551,14 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
   <div class="qc fade-card" id="qc15">
     <div class="qn">Q15</div>
     <p class="qt">What would Vivrit need to get right above everything else for you to pay for it?</p>
-    <textarea class="q-input" name="q15" placeholder="For example: My child uses it happily without needing to be coerced. The content genuinely feels different from what they already watch. I notice real improvements in their focus or emotional awareness after a few weeks..." rows="4"></textarea>
+    <textarea class="q-input" name="q15" placeholder="Share your honest thoughts…" rows="4"></textarea>
   </div>
 
   <div class="qc sky-card fade-card" id="qc16">
     <div class="qn sky">Q16</div>
     <p class="qt">Is there anything about this concept that makes you uncomfortable or sceptical?</p>
     <p class="qs">No judgment here. Honest concerns are the most valuable thing you can share.</p>
-    <textarea class="q-input" name="q16" placeholder="For example: Still feels like screen time to me. Not sure the psychologist label means much in practice. Worried my child would lose interest in two weeks..." rows="3"></textarea>
+    <textarea class="q-input" name="q16" placeholder="Share your honest thoughts…" rows="3"></textarea>
   </div>
 
   <div class="qc fade-card" id="qc17">
@@ -578,8 +586,8 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
 
   <!-- SECTION 7: FREE TRIAL -->
   <div class="sec"><span class="sec-n">07</span><div class="sec-line"></div></div>
-  <div class="sec-title">Try Vivrit for free</div>
-  <div class="sec-sub">Everything below is completely optional. But if you are curious, we would love to put the product in your hands first.</div>
+  <div class="sec-title">Get early access to Vivrit</div>
+  <div class="sec-sub">Join our WhatsApp community for first access to the experience and early updates.</div>
 
   <div class="trial-card">
     <div class="trial-grid"></div>
@@ -619,8 +627,16 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
             </div>
           </div>
           <div class="trial-field">
-            <div class="trial-label">Best way to reach you</div>
-            <input class="trial-input" type="text" name="trial_contact" placeholder="Phone number or email address">
+            <div class="trial-label">Email address</div>
+            <input class="trial-input" type="email" name="trial_email" id="trial-email" placeholder="your@email.com" oninput="validateEmail(this)">
+            <div id="trial-email-err" style="font-size:11px;color:var(--red);margin-top:5px;display:none;">Please enter a valid email address.</div>
+          </div>
+          <div class="trial-field">
+            <div class="trial-label">Phone number</div>
+            <div class="phone-row">
+              <select class="trial-input phone-prefix" name="trial_phone_prefix" id="phone-prefix"></select>
+              <input class="trial-input" type="tel" name="trial_phone" placeholder="Phone number">
+            </div>
           </div>
         </div>
         <div class="trial-note">We will never share your details. No spam. Just a free access link and a short follow up call if you want one.</div>
@@ -648,18 +664,22 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
 </div>
 
 <div class="ty" id="ty">
-  <div class="ty-icon">🌱</div>
+  <div class="ty-logo">
+    <div class="ty-logo-mark">🌱</div>
+    <div class="ty-logo-name">Vivrit<span>.</span></div>
+  </div>
   <h2 class="ty-title">Thank you.</h2>
   <p class="ty-sub">Your responses are in. Every honest answer helps us build something genuinely useful for young children and their families, or tells us clearly when to stop.</p>
-  <div class="ty-box">
-    <div class="ty-box-grid"></div>
-    <div class="ty-box-inner">
-      <div class="ty-box-lbl">Your verdict</div>
-      <div class="ty-box-txt" id="ty-msg">Every honest response makes the next decision better.</div>
-    </div>
-  </div>
   <div class="ty-trial-note" id="ty-trial-note" style="display:none;">
-    <strong>We received your free trial request.</strong> A member of our team will reach out within 2 to 3 working days with your access link. Thank you for being an early believer in this.
+    <strong>We received your free trial request.</strong> A member of our team will reach out within 2 to 3 working days. Thank you for being an early believer in this.
+  </div>
+  <div class="ty-share">
+    <div class="ty-share-txt">Know a parent who would find this useful?</div>
+    <button class="btn-share" onclick="shareForm()">
+      <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="3" r="1.5"/><circle cx="12" cy="13" r="1.5"/><circle cx="3" cy="8" r="1.5"/><line x1="10.6" y1="3.9" x2="4.4" y2="7.1"/><line x1="4.4" y1="8.9" x2="10.6" y2="12.1"/></svg>
+      Share now
+    </button>
+    <div class="ty-copied" id="ty-copied">Link copied to clipboard!</div>
   </div>
 </div>
 
@@ -777,16 +797,134 @@ function collect(){
   });
   document.querySelectorAll('.lkb.sel').forEach(b=>{d['q'+b.dataset.q]=parseInt(b.dataset.v);});
   d.q17_nps=document.getElementById('q17val').value;
-  ['q15','q16','trial_name','trial_child_age','trial_city','trial_school','trial_contact'].forEach(n=>{
+  ['q15','q16','trial_name','trial_child_age','trial_city','trial_school','trial_email','trial_phone','trial_phone_prefix'].forEach(n=>{
     const el=document.querySelector(`[name="${n}"]`);
     if(el&&el.value) d[n]=el.value;
   });
   return d;
 }
 
+// Email validation
+function validateEmail(el){
+  const err=document.getElementById('trial-email-err');
+  if(!el.value){err.style.display='none';el.style.borderColor='';return true;}
+  const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  err.style.display=ok?'none':'block';
+  el.style.borderColor=ok?'':'var(--red)';
+  return ok;
+}
+
+// Share
+function shareForm(){
+  const url=window.location.href.split('?')[0];
+  if(navigator.share){
+    navigator.share({title:'Vivrit Survey',text:'Know a parent who would find this useful?',url}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      const el=document.getElementById('ty-copied');
+      el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'),2500);
+    });
+  }
+}
+
+// Country dial codes
+const DIAL_CODES=[
+  {c:'IN',d:'+91',n:'India'},
+  {c:'US',d:'+1',n:'United States'},
+  {c:'GB',d:'+44',n:'United Kingdom'},
+  {c:'AF',d:'+93',n:'Afghanistan'},{c:'AL',d:'+355',n:'Albania'},{c:'DZ',d:'+213',n:'Algeria'},
+  {c:'AD',d:'+376',n:'Andorra'},{c:'AO',d:'+244',n:'Angola'},{c:'AG',d:'+1268',n:'Antigua & Barbuda'},
+  {c:'AR',d:'+54',n:'Argentina'},{c:'AM',d:'+374',n:'Armenia'},{c:'AU',d:'+61',n:'Australia'},
+  {c:'AT',d:'+43',n:'Austria'},{c:'AZ',d:'+994',n:'Azerbaijan'},{c:'BS',d:'+1242',n:'Bahamas'},
+  {c:'BH',d:'+973',n:'Bahrain'},{c:'BD',d:'+880',n:'Bangladesh'},{c:'BB',d:'+1246',n:'Barbados'},
+  {c:'BY',d:'+375',n:'Belarus'},{c:'BE',d:'+32',n:'Belgium'},{c:'BZ',d:'+501',n:'Belize'},
+  {c:'BJ',d:'+229',n:'Benin'},{c:'BT',d:'+975',n:'Bhutan'},{c:'BO',d:'+591',n:'Bolivia'},
+  {c:'BA',d:'+387',n:'Bosnia & Herzegovina'},{c:'BW',d:'+267',n:'Botswana'},{c:'BR',d:'+55',n:'Brazil'},
+  {c:'BN',d:'+673',n:'Brunei'},{c:'BG',d:'+359',n:'Bulgaria'},{c:'BF',d:'+226',n:'Burkina Faso'},
+  {c:'BI',d:'+257',n:'Burundi'},{c:'CV',d:'+238',n:'Cabo Verde'},{c:'KH',d:'+855',n:'Cambodia'},
+  {c:'CM',d:'+237',n:'Cameroon'},{c:'CA',d:'+1',n:'Canada'},{c:'CF',d:'+236',n:'Central African Republic'},
+  {c:'TD',d:'+235',n:'Chad'},{c:'CL',d:'+56',n:'Chile'},{c:'CN',d:'+86',n:'China'},
+  {c:'CO',d:'+57',n:'Colombia'},{c:'KM',d:'+269',n:'Comoros'},{c:'CG',d:'+242',n:'Congo'},
+  {c:'CR',d:'+506',n:'Costa Rica'},{c:'HR',d:'+385',n:'Croatia'},{c:'CU',d:'+53',n:'Cuba'},
+  {c:'CY',d:'+357',n:'Cyprus'},{c:'CZ',d:'+420',n:'Czech Republic'},{c:'DK',d:'+45',n:'Denmark'},
+  {c:'DJ',d:'+253',n:'Djibouti'},{c:'DO',d:'+1809',n:'Dominican Republic'},{c:'EC',d:'+593',n:'Ecuador'},
+  {c:'EG',d:'+20',n:'Egypt'},{c:'SV',d:'+503',n:'El Salvador'},{c:'GQ',d:'+240',n:'Equatorial Guinea'},
+  {c:'ER',d:'+291',n:'Eritrea'},{c:'EE',d:'+372',n:'Estonia'},{c:'SZ',d:'+268',n:'Eswatini'},
+  {c:'ET',d:'+251',n:'Ethiopia'},{c:'FJ',d:'+679',n:'Fiji'},{c:'FI',d:'+358',n:'Finland'},
+  {c:'FR',d:'+33',n:'France'},{c:'GA',d:'+241',n:'Gabon'},{c:'GM',d:'+220',n:'Gambia'},
+  {c:'GE',d:'+995',n:'Georgia'},{c:'DE',d:'+49',n:'Germany'},{c:'GH',d:'+233',n:'Ghana'},
+  {c:'GR',d:'+30',n:'Greece'},{c:'GD',d:'+1473',n:'Grenada'},{c:'GT',d:'+502',n:'Guatemala'},
+  {c:'GN',d:'+224',n:'Guinea'},{c:'GW',d:'+245',n:'Guinea-Bissau'},{c:'GY',d:'+592',n:'Guyana'},
+  {c:'HT',d:'+509',n:'Haiti'},{c:'HN',d:'+504',n:'Honduras'},{c:'HU',d:'+36',n:'Hungary'},
+  {c:'IS',d:'+354',n:'Iceland'},{c:'ID',d:'+62',n:'Indonesia'},{c:'IR',d:'+98',n:'Iran'},
+  {c:'IQ',d:'+964',n:'Iraq'},{c:'IE',d:'+353',n:'Ireland'},{c:'IL',d:'+972',n:'Israel'},
+  {c:'IT',d:'+39',n:'Italy'},{c:'JM',d:'+1876',n:'Jamaica'},{c:'JP',d:'+81',n:'Japan'},
+  {c:'JO',d:'+962',n:'Jordan'},{c:'KZ',d:'+7',n:'Kazakhstan'},{c:'KE',d:'+254',n:'Kenya'},
+  {c:'KI',d:'+686',n:'Kiribati'},{c:'KW',d:'+965',n:'Kuwait'},{c:'KG',d:'+996',n:'Kyrgyzstan'},
+  {c:'LA',d:'+856',n:'Laos'},{c:'LV',d:'+371',n:'Latvia'},{c:'LB',d:'+961',n:'Lebanon'},
+  {c:'LS',d:'+266',n:'Lesotho'},{c:'LR',d:'+231',n:'Liberia'},{c:'LY',d:'+218',n:'Libya'},
+  {c:'LI',d:'+423',n:'Liechtenstein'},{c:'LT',d:'+370',n:'Lithuania'},{c:'LU',d:'+352',n:'Luxembourg'},
+  {c:'MG',d:'+261',n:'Madagascar'},{c:'MW',d:'+265',n:'Malawi'},{c:'MY',d:'+60',n:'Malaysia'},
+  {c:'MV',d:'+960',n:'Maldives'},{c:'ML',d:'+223',n:'Mali'},{c:'MT',d:'+356',n:'Malta'},
+  {c:'MH',d:'+692',n:'Marshall Islands'},{c:'MR',d:'+222',n:'Mauritania'},{c:'MU',d:'+230',n:'Mauritius'},
+  {c:'MX',d:'+52',n:'Mexico'},{c:'FM',d:'+691',n:'Micronesia'},{c:'MD',d:'+373',n:'Moldova'},
+  {c:'MC',d:'+377',n:'Monaco'},{c:'MN',d:'+976',n:'Mongolia'},{c:'ME',d:'+382',n:'Montenegro'},
+  {c:'MA',d:'+212',n:'Morocco'},{c:'MZ',d:'+258',n:'Mozambique'},{c:'MM',d:'+95',n:'Myanmar'},
+  {c:'NA',d:'+264',n:'Namibia'},{c:'NR',d:'+674',n:'Nauru'},{c:'NP',d:'+977',n:'Nepal'},
+  {c:'NL',d:'+31',n:'Netherlands'},{c:'NZ',d:'+64',n:'New Zealand'},{c:'NI',d:'+505',n:'Nicaragua'},
+  {c:'NE',d:'+227',n:'Niger'},{c:'NG',d:'+234',n:'Nigeria'},{c:'NO',d:'+47',n:'Norway'},
+  {c:'OM',d:'+968',n:'Oman'},{c:'PK',d:'+92',n:'Pakistan'},{c:'PW',d:'+680',n:'Palau'},
+  {c:'PA',d:'+507',n:'Panama'},{c:'PG',d:'+675',n:'Papua New Guinea'},{c:'PY',d:'+595',n:'Paraguay'},
+  {c:'PE',d:'+51',n:'Peru'},{c:'PH',d:'+63',n:'Philippines'},{c:'PL',d:'+48',n:'Poland'},
+  {c:'PT',d:'+351',n:'Portugal'},{c:'QA',d:'+974',n:'Qatar'},{c:'RO',d:'+40',n:'Romania'},
+  {c:'RU',d:'+7',n:'Russia'},{c:'RW',d:'+250',n:'Rwanda'},{c:'KN',d:'+1869',n:'Saint Kitts & Nevis'},
+  {c:'LC',d:'+1758',n:'Saint Lucia'},{c:'VC',d:'+1784',n:'Saint Vincent & Grenadines'},
+  {c:'WS',d:'+685',n:'Samoa'},{c:'SM',d:'+378',n:'San Marino'},{c:'ST',d:'+239',n:'São Tomé & Príncipe'},
+  {c:'SA',d:'+966',n:'Saudi Arabia'},{c:'SN',d:'+221',n:'Senegal'},{c:'RS',d:'+381',n:'Serbia'},
+  {c:'SC',d:'+248',n:'Seychelles'},{c:'SL',d:'+232',n:'Sierra Leone'},{c:'SG',d:'+65',n:'Singapore'},
+  {c:'SK',d:'+421',n:'Slovakia'},{c:'SI',d:'+386',n:'Slovenia'},{c:'SB',d:'+677',n:'Solomon Islands'},
+  {c:'SO',d:'+252',n:'Somalia'},{c:'ZA',d:'+27',n:'South Africa'},{c:'SS',d:'+211',n:'South Sudan'},
+  {c:'ES',d:'+34',n:'Spain'},{c:'LK',d:'+94',n:'Sri Lanka'},{c:'SD',d:'+249',n:'Sudan'},
+  {c:'SR',d:'+597',n:'Suriname'},{c:'SE',d:'+46',n:'Sweden'},{c:'CH',d:'+41',n:'Switzerland'},
+  {c:'SY',d:'+963',n:'Syria'},{c:'TW',d:'+886',n:'Taiwan'},{c:'TJ',d:'+992',n:'Tajikistan'},
+  {c:'TZ',d:'+255',n:'Tanzania'},{c:'TH',d:'+66',n:'Thailand'},{c:'TL',d:'+670',n:'Timor-Leste'},
+  {c:'TG',d:'+228',n:'Togo'},{c:'TO',d:'+676',n:'Tonga'},{c:'TT',d:'+1868',n:'Trinidad & Tobago'},
+  {c:'TN',d:'+216',n:'Tunisia'},{c:'TR',d:'+90',n:'Turkey'},{c:'TM',d:'+993',n:'Turkmenistan'},
+  {c:'TV',d:'+688',n:'Tuvalu'},{c:'UG',d:'+256',n:'Uganda'},{c:'UA',d:'+380',n:'Ukraine'},
+  {c:'AE',d:'+971',n:'UAE'},{c:'UY',d:'+598',n:'Uruguay'},{c:'UZ',d:'+998',n:'Uzbekistan'},
+  {c:'VU',d:'+678',n:'Vanuatu'},{c:'VE',d:'+58',n:'Venezuela'},{c:'VN',d:'+84',n:'Vietnam'},
+  {c:'YE',d:'+967',n:'Yemen'},{c:'ZM',d:'+260',n:'Zambia'},{c:'ZW',d:'+263',n:'Zimbabwe'},
+];
+
+(function initPhone(){
+  const sel=document.getElementById('phone-prefix');
+  DIAL_CODES.forEach(({c,d,n})=>{
+    const o=document.createElement('option');
+    o.value=d;
+    o.textContent=`${d} ${n}`;
+    o.dataset.cc=c;
+    sel.appendChild(o);
+  });
+  // auto-detect country via IP
+  fetch('https://ipapi.co/country_code/')
+    .then(r=>r.text())
+    .then(cc=>{
+      cc=cc.trim().toUpperCase();
+      const match=[...sel.options].find(o=>o.dataset.cc===cc);
+      if(match) sel.value=match.value;
+    })
+    .catch(()=>{}); // fallback stays as first option (India)
+})();
+
 // Submit
 async function submitForm(){
   if(!validate()) return;
+  const emailEl=document.getElementById('trial-email');
+  if(emailEl&&emailEl.value&&!validateEmail(emailEl)){
+    emailEl.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
   const r=collect();
 
   const btn=document.querySelector('.btn-sub');
@@ -809,15 +947,6 @@ async function submitForm(){
   }
 
   btn.disabled=false;
-
-  const msgs={
-    strong_yes:'You see a real problem and believe this is the right solution. That is the clearest signal we can receive and we will build accordingly.',
-    yes_if:'Yes if it delivers is the most useful answer we can get. It means the problem is real and the bar is high. We have noted what matters most to you.',
-    niche:'Knowing exactly who it is for and who it is not for is more valuable than broad but shallow enthusiasm. This sharpens how we go to market.',
-    wrong_approach:'The hardest feedback to hear and the most important. Thank you for saying it plainly rather than being polite about it.',
-    no_problem:'This is exactly what we needed to hear. If the problem is not felt, nothing else matters. Your honesty saves significant time.'
-  };
-  document.getElementById('ty-msg').textContent=msgs[r.q18]||'Every honest response makes the next decision better.';
 
   const wantsTrial=r['wants_trial']&&r['wants_trial'].includes('yes');
   if(wantsTrial) document.getElementById('ty-trial-note').style.display='block';
