@@ -226,6 +226,9 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
   .price-grid{grid-template-columns:1fr 1fr;}
   .trial-row{grid-template-columns:1fr;}
 }
+.lang-toggle{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:3px;}
+.lt-btn{background:none;border:none;padding:4px 10px;border-radius:16px;font-family:'Sora',sans-serif;font-size:11px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;transition:all .18s;letter-spacing:.04em;}
+.lt-btn.lt-active{background:rgba(255,255,255,.15);color:#fff;}
 </style>
 </head>
 <body>
@@ -245,17 +248,21 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-pill"><span class="hero-pill-dot"></span>Parent and Educator Survey</div>
+    <div class="hero-pill"><span class="hero-pill-dot"></span><span data-i18n="hero.pill">Parent and Educator Survey</span></div>
     <div class="hero-logo">
       <div class="hero-logo-mark">🌱</div>
       <div class="hero-logo-name">Vivrit<span>.</span></div>
     </div>
-    <h1 class="hero-title">Built for little learners.<br><em>Shaped by you.</em></h1>
-    <p class="hero-sub">Vivrit helps children aged 2 to 10 grow through purposeful screen time. Three minutes of your honest thoughts will shape whether and how we build this for preschools and young families.</p>
+    <h1 class="hero-title" data-i18n-html="hero.title">Built for little learners.<br><em>Shaped by you.</em></h1>
+    <p class="hero-sub" data-i18n="hero.sub">Vivrit helps children aged 2 to 10 grow through purposeful screen time. Three minutes of your honest thoughts will shape whether and how we build this for preschools and young families.</p>
     <div class="hero-meta">
-      <div class="hero-chip">Anonymous</div>
-      <div class="hero-chip"><div class="hero-chip-dot"></div>3 to 4 minutes</div>
-      <div class="hero-chip"><div class="hero-chip-dot"></div>18 questions</div>
+      <div class="hero-chip" data-i18n="hero.anon">Anonymous</div>
+      <div class="hero-chip"><div class="hero-chip-dot"></div><span data-i18n="hero.time">3 to 4 minutes</span></div>
+      <div class="hero-chip"><div class="hero-chip-dot"></div><span data-i18n="hero.qs">18 questions</span></div>
+      <div class="hero-chip lang-toggle">
+        <button class="lt-btn lt-active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lt-btn" id="btn-hi" onclick="setLang('hi')">हिं</button>
+      </div>
     </div>
   </div>
 </div>
@@ -266,61 +273,61 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
 
   <!-- SECTION 1 -->
   <div class="sec"><span class="sec-n">01</span><div class="sec-line"></div></div>
-  <div class="sec-title">About you</div>
-  <div class="sec-sub">A quick picture of who you are and who you are speaking for.</div>
+  <div class="sec-title" data-i18n="s1.title">About you</div>
+  <div class="sec-sub" data-i18n="s1.sub">A quick picture of who you are and who you are speaking for.</div>
 
   <div class="qc fade-card" id="qc1">
     <div class="qn">Q1</div>
     <fieldset>
-      <legend>What is your role?<span class="qreq">*</span></legend>
+      <legend><span data-i18n="q1.title">What is your role?</span><span class="qreq">*</span></legend>
       <div class="opts">
-        <label class="opt"><input type="radio" name="q1" value="parent"><div class="radio-dot"></div><div><div class="ol">Parent or caregiver</div><div class="os">My child is aged 2 to 10</div></div></label>
-        <label class="opt"><input type="radio" name="q1" value="preschool_leader"><div class="radio-dot"></div><div><div class="ol">Preschool or daycare owner or principal</div><div class="os">I run or lead an early childhood centre</div></div></label>
-        <label class="opt"><input type="radio" name="q1" value="teacher"><div class="radio-dot"></div><div><div class="ol">Preschool or primary teacher</div><div class="os">I work with children aged 2 to 10 daily</div></div></label>
-        <label class="opt"><input type="radio" name="q1" value="both"><div class="radio-dot"></div><div class="ol">I am both a parent and an educator</div></label>
+        <label class="opt"><input type="radio" name="q1" value="parent"><div class="radio-dot"></div><div><div class="ol" data-i18n="q1.o1">Parent or caregiver</div><div class="os" data-i18n="q1.o1s">My child is aged 2 to 10</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="preschool_leader"><div class="radio-dot"></div><div><div class="ol" data-i18n="q1.o2">Preschool or daycare owner or principal</div><div class="os" data-i18n="q1.o2s">I run or lead an early childhood centre</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="teacher"><div class="radio-dot"></div><div><div class="ol" data-i18n="q1.o3">Preschool or primary teacher</div><div class="os" data-i18n="q1.o3s">I work with children aged 2 to 10 daily</div></div></label>
+        <label class="opt"><input type="radio" name="q1" value="both"><div class="radio-dot"></div><div class="ol" data-i18n="q1.o4">I am both a parent and an educator</div></label>
       </div>
     </fieldset>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <div class="qc fade-card" id="qc2">
     <div class="qn">Q2</div>
     <fieldset>
-      <legend>How old is your child or the children you work with?<span class="qreq">*</span></legend>
+      <legend><span data-i18n="q2.title">How old is your child or the children you work with?</span><span class="qreq">*</span></legend>
       <div class="opts g2">
-        <label class="opt"><input type="radio" name="q2" value="2to3"><div class="radio-dot"></div><span class="ol">Ages 2 to 3</span></label>
-        <label class="opt"><input type="radio" name="q2" value="3to5"><div class="radio-dot"></div><span class="ol">Ages 3 to 5</span></label>
-        <label class="opt"><input type="radio" name="q2" value="6to8"><div class="radio-dot"></div><span class="ol">Ages 6 to 8</span></label>
-        <label class="opt"><input type="radio" name="q2" value="9to10"><div class="radio-dot"></div><span class="ol">Ages 9 to 10</span></label>
+        <label class="opt"><input type="radio" name="q2" value="2to3"><div class="radio-dot"></div><span class="ol" data-i18n="q2.o1">Ages 2 to 3</span></label>
+        <label class="opt"><input type="radio" name="q2" value="3to5"><div class="radio-dot"></div><span class="ol" data-i18n="q2.o2">Ages 3 to 5</span></label>
+        <label class="opt"><input type="radio" name="q2" value="6to8"><div class="radio-dot"></div><span class="ol" data-i18n="q2.o3">Ages 6 to 8</span></label>
+        <label class="opt"><input type="radio" name="q2" value="9to10"><div class="radio-dot"></div><span class="ol" data-i18n="q2.o4">Ages 9 to 10</span></label>
       </div>
     </fieldset>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc3">
     <div class="qn sky">Q3</div>
     <fieldset>
-      <legend>How much screen time does your child or the children in your care get on average each day?<span class="qreq">*</span></legend>
+      <legend><span data-i18n="q3.title">How much screen time does your child or the children in your care get on average each day?</span><span class="qreq">*</span></legend>
       <div class="opts">
-        <label class="opt"><input type="radio" name="q3" value="under1"><div class="radio-dot"></div><span class="ol">Less than 1 hour</span></label>
-        <label class="opt"><input type="radio" name="q3" value="1to2"><div class="radio-dot"></div><span class="ol">1 to 2 hours</span></label>
-        <label class="opt"><input type="radio" name="q3" value="2to4"><div class="radio-dot"></div><span class="ol">2 to 4 hours</span></label>
-        <label class="opt"><input type="radio" name="q3" value="over4"><div class="radio-dot"></div><span class="ol">More than 4 hours</span></label>
+        <label class="opt"><input type="radio" name="q3" value="under1"><div class="radio-dot"></div><span class="ol" data-i18n="q3.o1">Less than 1 hour</span></label>
+        <label class="opt"><input type="radio" name="q3" value="1to2"><div class="radio-dot"></div><span class="ol" data-i18n="q3.o2">1 to 2 hours</span></label>
+        <label class="opt"><input type="radio" name="q3" value="2to4"><div class="radio-dot"></div><span class="ol" data-i18n="q3.o3">2 to 4 hours</span></label>
+        <label class="opt"><input type="radio" name="q3" value="over4"><div class="radio-dot"></div><span class="ol" data-i18n="q3.o4">More than 4 hours</span></label>
       </div>
     </fieldset>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <!-- SECTION 2 -->
   <div class="sec"><span class="sec-n sky">02</span><div class="sec-line"></div></div>
-  <div class="sec-title">The problem</div>
-  <div class="sec-sub">We want to understand how strongly you feel this. There are no right answers here.</div>
+  <div class="sec-title" data-i18n="s2.title">The problem</div>
+  <div class="sec-sub" data-i18n="s2.sub">We want to understand how strongly you feel this. There are no right answers here.</div>
 
   <div class="qc fade-card" id="qc4">
     <div class="qn">Q4</div>
-    <p class="qt">How concerned are you about the quality of what young children consume on screen?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q4.title">How concerned are you about the quality of what young children consume on screen?</span><span class="qreq">*</span></p>
     <div class="lk">
-      <div class="lk-ends"><span class="lk-end">Not concerned</span><span class="lk-end">Very concerned</span></div>
+      <div class="lk-ends"><span class="lk-end" data-i18n="q4.lo">Not concerned</span><span class="lk-end" data-i18n="q4.hi">Very concerned</span></div>
       <div class="lk-track">
         <button type="button" class="lkb" data-q="4" data-v="1">1</button>
         <button type="button" class="lkb" data-q="4" data-v="2">2</button>
@@ -329,75 +336,75 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
         <button type="button" class="lkb" data-q="4" data-v="5">5</button>
       </div>
     </div>
-    <div class="err-txt">Please select a rating.</div>
+    <div class="err-txt" data-i18n="err.rating">Please select a rating.</div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc5">
     <div class="qn sky">Q5</div>
-    <p class="qt">What kind of content do young children in your home or classroom most commonly watch?</p>
-    <p class="qs">Select all that apply.</p>
+    <p class="qt" data-i18n="q5.title">What kind of content do young children in your home or classroom most commonly watch?</p>
+    <p class="qs" data-i18n="q5.sub">Select all that apply.</p>
     <div class="opts">
-      <label class="opt"><input type="checkbox" name="q5" value="youtube"><div class="check-sq"></div><div><div class="ol">YouTube Kids or regular YouTube</div></div></label>
-      <label class="opt"><input type="checkbox" name="q5" value="ott"><div class="check-sq"></div><div class="ol">Netflix, Disney Plus or similar OTT shows</div></label>
-      <label class="opt"><input type="checkbox" name="q5" value="ed_apps"><div class="check-sq"></div><div class="ol">Educational apps like BYJU's or Khan Academy Kids</div></label>
-      <label class="opt"><input type="checkbox" name="q5" value="games"><div class="check-sq"></div><div class="ol">Mobile games</div></label>
-      <label class="opt"><input type="checkbox" name="q5" value="limited"><div class="check-sq"></div><div class="ol">We keep screen time very limited</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="youtube"><div class="check-sq"></div><div><div class="ol" data-i18n="q5.o1">YouTube Kids or regular YouTube</div></div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="ott"><div class="check-sq"></div><div class="ol" data-i18n="q5.o2">Netflix, Disney Plus or similar OTT shows</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="ed_apps"><div class="check-sq"></div><div class="ol" data-i18n="q5.o3">Educational apps like BYJU's or Khan Academy Kids</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="games"><div class="check-sq"></div><div class="ol" data-i18n="q5.o4">Mobile games</div></label>
+      <label class="opt"><input type="checkbox" name="q5" value="limited"><div class="check-sq"></div><div class="ol" data-i18n="q5.o5">We keep screen time very limited</div></label>
     </div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc6">
     <div class="qn sky">Q6</div>
-    <p class="qt">Do you notice unregulated screen time affecting young children in visible ways?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q6.title">Do you notice unregulated screen time affecting young children in visible ways?</span><span class="qreq">*</span></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="yes_clearly"><div class="radio-dot"></div><div><div class="ol">Yes, clearly</div><div class="os">Shorter attention, emotional meltdowns, sleep issues</div></div></label>
-      <label class="opt"><input type="radio" name="q6" value="somewhat"><div class="radio-dot"></div><div class="ol">Somewhat. I notice it but cannot always separate the cause.</div></label>
-      <label class="opt"><input type="radio" name="q6" value="not_sure"><div class="radio-dot"></div><div class="ol">Not sure. I do not have enough information yet.</div></label>
-      <label class="opt"><input type="radio" name="q6" value="no"><div class="radio-dot"></div><div class="ol">No. I do not see a clear connection.</div></label>
+      <label class="opt"><input type="radio" name="q6" value="yes_clearly"><div class="radio-dot"></div><div><div class="ol" data-i18n="q6.o1">Yes, clearly</div><div class="os" data-i18n="q6.o1s">Shorter attention, emotional meltdowns, sleep issues</div></div></label>
+      <label class="opt"><input type="radio" name="q6" value="somewhat"><div class="radio-dot"></div><div class="ol" data-i18n="q6.o2">Somewhat. I notice it but cannot always separate the cause.</div></label>
+      <label class="opt"><input type="radio" name="q6" value="not_sure"><div class="radio-dot"></div><div class="ol" data-i18n="q6.o3">Not sure. I do not have enough information yet.</div></label>
+      <label class="opt"><input type="radio" name="q6" value="no"><div class="radio-dot"></div><div class="ol" data-i18n="q6.o4">No. I do not see a clear connection.</div></label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <!-- SECTION 3 -->
   <div class="sec"><span class="sec-n">03</span><div class="sec-line"></div></div>
-  <div class="sec-title">Meet Vivrit</div>
-  <div class="sec-sub">Read this carefully. Then tell us what you honestly think.</div>
+  <div class="sec-title" data-i18n="s3.title">Meet Vivrit</div>
+  <div class="sec-sub" data-i18n="s3.sub">Read this carefully. Then tell us what you honestly think.</div>
 
   <div class="concept">
     <div class="concept-grid"></div>
     <div class="concept-glow"></div>
     <div class="concept-inner">
-      <div class="concept-eyebrow">What Vivrit is</div>
-      <p class="concept-body">A child development platform built for children aged 2 to 10. It replaces passive content like YouTube Kids and Netflix cartoons with psychologist-certified stories, interactive games, and focus building activities. Every piece of content is matched to your child's age and developmental stage. Parents get a weekly dashboard showing what their child engaged with and what it is building in them. Preschools partner with Vivrit to extend their learning philosophy into the home.</p>
+      <div class="concept-eyebrow" data-i18n="c.eyebrow">What Vivrit is</div>
+      <p class="concept-body" data-i18n="c.body">A child development platform built for children aged 2 to 10. It replaces passive content like YouTube Kids and Netflix cartoons with psychologist-certified stories, interactive games, and focus building activities. Every piece of content is matched to your child's age and developmental stage. Parents get a weekly dashboard showing what their child engaged with and what it is building in them. Preschools partner with Vivrit to extend their learning philosophy into the home.</p>
       <div class="concept-pills">
-        <span class="cpill sky">Built for ages 2 to 10</span>
-        <span class="cpill vio">Psychologist certified</span>
-        <span class="cpill sky">Age matched stories and games</span>
-        <span class="cpill vio">Weekly parent insight dashboard</span>
-        <span class="cpill sky">Replaces passive OTT content</span>
-        <span class="cpill vio">No ads and no algorithm</span>
+        <span class="cpill sky" data-i18n="c.p1">Built for ages 2 to 10</span>
+        <span class="cpill vio" data-i18n="c.p2">Psychologist certified</span>
+        <span class="cpill sky" data-i18n="c.p3">Age matched stories and games</span>
+        <span class="cpill vio" data-i18n="c.p4">Weekly parent insight dashboard</span>
+        <span class="cpill sky" data-i18n="c.p5">Replaces passive OTT content</span>
+        <span class="cpill vio" data-i18n="c.p6">No ads and no algorithm</span>
       </div>
     </div>
   </div>
 
   <div class="qc fade-card" id="qc7">
     <div class="qn">Q7</div>
-    <p class="qt">What is your honest first reaction to Vivrit?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q7.title">What is your honest first reaction to Vivrit?</span><span class="qreq">*</span></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="need_this"><div class="radio-dot"></div><div><div class="ol">This is exactly what I have been looking for</div><div class="os">I would sign up or recommend it right away</div></div></label>
-      <label class="opt"><input type="radio" name="q7" value="interesting"><div class="radio-dot"></div><div class="ol">Interesting. I would want to know more before deciding.</div></label>
-      <label class="opt"><input type="radio" name="q7" value="maybe"><div class="radio-dot"></div><div class="ol">Maybe. I have real questions about how it works in practice.</div></label>
-      <label class="opt"><input type="radio" name="q7" value="unlikely"><div class="radio-dot"></div><div class="ol">Unlikely that I would use or recommend this.</div></label>
-      <label class="opt"><input type="radio" name="q7" value="no"><div class="radio-dot"></div><div class="ol">Definitely not for us.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="need_this"><div class="radio-dot"></div><div><div class="ol" data-i18n="q7.o1">This is exactly what I have been looking for</div><div class="os" data-i18n="q7.o1s">I would sign up or recommend it right away</div></div></label>
+      <label class="opt"><input type="radio" name="q7" value="interesting"><div class="radio-dot"></div><div class="ol" data-i18n="q7.o2">Interesting. I would want to know more before deciding.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="maybe"><div class="radio-dot"></div><div class="ol" data-i18n="q7.o3">Maybe. I have real questions about how it works in practice.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="unlikely"><div class="radio-dot"></div><div class="ol" data-i18n="q7.o4">Unlikely that I would use or recommend this.</div></label>
+      <label class="opt"><input type="radio" name="q7" value="no"><div class="radio-dot"></div><div class="ol" data-i18n="q7.o5">Definitely not for us.</div></label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <div class="qc fade-card" id="qc8">
     <div class="qn">Q8</div>
-    <p class="qt">How much does this idea resonate with you?<span class="qreq">*</span></p>
-    <p class="qs">Your school's learning approach should not stop when your child gets home. Vivrit carries it forward into every evening and every weekend.</p>
+    <p class="qt"><span data-i18n="q8.title">How much does this idea resonate with you?</span><span class="qreq">*</span></p>
+    <p class="qs" data-i18n="q8.sub">Your school's learning approach should not stop when your child gets home. Vivrit carries it forward into every evening and every weekend.</p>
     <div class="lk">
-      <div class="lk-ends"><span class="lk-end">Does not resonate</span><span class="lk-end">Resonates strongly</span></div>
+      <div class="lk-ends"><span class="lk-end" data-i18n="q8.lo">Does not resonate</span><span class="lk-end" data-i18n="q8.hi">Resonates strongly</span></div>
       <div class="lk-track">
         <button type="button" class="lkb" data-q="8" data-v="1">1</button>
         <button type="button" class="lkb" data-q="8" data-v="2">2</button>
@@ -406,14 +413,14 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
         <button type="button" class="lkb" data-q="8" data-v="5">5</button>
       </div>
     </div>
-    <div class="err-txt">Please select a rating.</div>
+    <div class="err-txt" data-i18n="err.rating">Please select a rating.</div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc9">
     <div class="qn sky">Q9</div>
-    <p class="qt">How credible is it to you that content reviewed by child psychologists would be meaningfully different?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q9.title">How credible is it to you that content reviewed by child psychologists would be meaningfully different?</span><span class="qreq">*</span></p>
     <div class="lk">
-      <div class="lk-ends"><span class="lk-end">Not credible at all</span><span class="lk-end">Very credible</span></div>
+      <div class="lk-ends"><span class="lk-end" data-i18n="q9.lo">Not credible at all</span><span class="lk-end" data-i18n="q9.hi">Very credible</span></div>
       <div class="lk-track">
         <button type="button" class="lkb" data-q="9" data-v="1">1</button>
         <button type="button" class="lkb" data-q="9" data-v="2">2</button>
@@ -422,116 +429,116 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
         <button type="button" class="lkb" data-q="9" data-v="5">5</button>
       </div>
     </div>
-    <div class="err-txt">Please select a rating.</div>
+    <div class="err-txt" data-i18n="err.rating">Please select a rating.</div>
   </div>
 
   <!-- SECTION 4 -->
   <div class="sec"><span class="sec-n sky">04</span><div class="sec-line"></div></div>
-  <div class="sec-title">Pricing</div>
-  <div class="sec-sub">Four honest options. Pick what reflects your real view, not what sounds reasonable.</div>
+  <div class="sec-title" data-i18n="s4.title">Pricing</div>
+  <div class="sec-sub" data-i18n="s4.sub">Four honest options. Pick what reflects your real view, not what sounds reasonable.</div>
 
   <div class="qc sky-card fade-card" id="qc10">
     <div class="qn sky">Q10</div>
-    <p class="qt">How much does your family currently spend on learning or enrichment apps per month?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q10.title">How much does your family currently spend on learning or enrichment apps per month?</span><span class="qreq">*</span></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="zero"><div class="radio-dot"></div><span class="ol">Nothing. We do not pay for apps.</span></label>
-      <label class="opt"><input type="radio" name="q10" value="under500"><div class="radio-dot"></div><span class="ol">Under 500 rupees</span></label>
-      <label class="opt"><input type="radio" name="q10" value="500to1500"><div class="radio-dot"></div><span class="ol">500 to 1500 rupees</span></label>
-      <label class="opt"><input type="radio" name="q10" value="over1500"><div class="radio-dot"></div><span class="ol">More than 1500 rupees. We invest actively in ed-tech.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="zero"><div class="radio-dot"></div><span class="ol" data-i18n="q10.o1">Nothing. We do not pay for apps.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="under500"><div class="radio-dot"></div><span class="ol" data-i18n="q10.o2">Under 500 rupees</span></label>
+      <label class="opt"><input type="radio" name="q10" value="500to1500"><div class="radio-dot"></div><span class="ol" data-i18n="q10.o3">500 to 1500 rupees</span></label>
+      <label class="opt"><input type="radio" name="q10" value="over1500"><div class="radio-dot"></div><span class="ol" data-i18n="q10.o4">More than 1500 rupees. We invest actively in ed-tech.</span></label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <div class="qc fade-card" id="qc11">
     <div class="qn">Q11</div>
-    <p class="qt">Which Vivrit plan feels right for your family?<span class="qreq">*</span></p>
-    <p class="qs">All plans include full access to age matched stories, games and the parent dashboard. Higher plans add more content depth and personalisation.</p>
+    <p class="qt"><span data-i18n="q11.title">Which Vivrit plan feels right for your family?</span><span class="qreq">*</span></p>
+    <p class="qs" data-i18n="q11.sub">All plans include full access to age matched stories, games and the parent dashboard. Higher plans add more content depth and personalisation.</p>
     <div class="price-grid">
       <label class="pc" onclick="selPC(this)">
         <input type="radio" name="q11" value="starter_1599">
-        <div class="pc-label">Starter</div>
+        <div class="pc-label" data-i18n="q11.starter">Starter</div>
         <div class="pc-amt">1,599 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
         <ul class="pc-includes">
-          <li>200 plus stories and activities</li>
-          <li>Age matched content for 1 child</li>
-          <li>Weekly parent summary</li>
+          <li data-i18n="q11.s1">200 plus stories and activities</li>
+          <li data-i18n="q11.s2">Age matched content for 1 child</li>
+          <li data-i18n="q11.s3">Weekly parent summary</li>
         </ul>
       </label>
       <label class="pc" onclick="selPC(this)">
-        <div class="pc-badge v">POPULAR</div>
+        <div class="pc-badge v" data-i18n="q11.popular">POPULAR</div>
         <input type="radio" name="q11" value="grow_2499">
-        <div class="pc-label">Grow</div>
+        <div class="pc-label" data-i18n="q11.grow">Grow</div>
         <div class="pc-amt">2,499 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
         <ul class="pc-includes">
-          <li>500 plus stories, games and brain activities</li>
-          <li>2 child profiles</li>
-          <li>Emotion Explorer sessions</li>
-          <li>School curriculum tags</li>
+          <li data-i18n="q11.g1">500 plus stories, games and brain activities</li>
+          <li data-i18n="q11.g2">2 child profiles</li>
+          <li data-i18n="q11.g3">Emotion Explorer sessions</li>
+          <li data-i18n="q11.g4">School curriculum tags</li>
         </ul>
       </label>
       <label class="pc" onclick="selPC(this)">
-        <div class="pc-badge s">BEST VALUE</div>
+        <div class="pc-badge s" data-i18n="q11.bestval">BEST VALUE</div>
         <input type="radio" name="q11" value="thrive_3499">
-        <div class="pc-label">Thrive</div>
+        <div class="pc-label" data-i18n="q11.thrive">Thrive</div>
         <div class="pc-amt">3,499 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
         <ul class="pc-includes">
-          <li>Full content library</li>
-          <li>3 child profiles</li>
-          <li>Focus and attention game tracks</li>
-          <li>Developmental milestone reports</li>
-          <li>Priority support</li>
+          <li data-i18n="q11.t1">Full content library</li>
+          <li data-i18n="q11.t2">3 child profiles</li>
+          <li data-i18n="q11.t3">Focus and attention game tracks</li>
+          <li data-i18n="q11.t4">Developmental milestone reports</li>
+          <li data-i18n="q11.t5">Priority support</li>
         </ul>
       </label>
       <label class="pc" onclick="selPC(this)">
         <input type="radio" name="q11" value="family_4999">
-        <div class="pc-label">Family</div>
+        <div class="pc-label" data-i18n="q11.family">Family</div>
         <div class="pc-amt">4,999 <span style="font-size:13px;font-weight:400;color:var(--ink3);">/ mo</span></div>
         <ul class="pc-includes">
-          <li>Everything in Thrive</li>
-          <li>Up to 5 child profiles</li>
-          <li>Monthly 1 on 1 child development check in</li>
-          <li>Early access to new content</li>
+          <li data-i18n="q11.f1">Everything in Thrive</li>
+          <li data-i18n="q11.f2">Up to 5 child profiles</li>
+          <li data-i18n="q11.f3">Monthly 1 on 1 child development check in</li>
+          <li data-i18n="q11.f4">Early access to new content</li>
         </ul>
       </label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc12">
     <div class="qn sky">Q12</div>
-    <p class="qt">How does Vivrit pricing compare to what you spend on similar enrichment for your child?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q12.title">How does Vivrit pricing compare to what you spend on similar enrichment for your child?</span><span class="qreq">*</span></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="much_less"><div class="radio-dot"></div><span class="ol">Much less than a typical class or activity</span></label>
-      <label class="opt"><input type="radio" name="q12" value="comparable"><div class="radio-dot"></div><span class="ol">Similar to one book box or outing per month</span></label>
-      <label class="opt"><input type="radio" name="q12" value="high"><div class="radio-dot"></div><span class="ol">Feels high for a digital product</span></label>
-      <label class="opt"><input type="radio" name="q12" value="too_much"><div class="radio-dot"></div><span class="ol">Too expensive regardless of what is included</span></label>
+      <label class="opt"><input type="radio" name="q12" value="much_less"><div class="radio-dot"></div><span class="ol" data-i18n="q12.o1">Much less than a typical class or activity</span></label>
+      <label class="opt"><input type="radio" name="q12" value="comparable"><div class="radio-dot"></div><span class="ol" data-i18n="q12.o2">Similar to one book box or outing per month</span></label>
+      <label class="opt"><input type="radio" name="q12" value="high"><div class="radio-dot"></div><span class="ol" data-i18n="q12.o3">Feels high for a digital product</span></label>
+      <label class="opt"><input type="radio" name="q12" value="too_much"><div class="radio-dot"></div><span class="ol" data-i18n="q12.o4">Too expensive regardless of what is included</span></label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <!-- SECTION 5 -->
   <div class="sec"><span class="sec-n">05</span><div class="sec-line"></div></div>
-  <div class="sec-title">Concerns and blockers</div>
-  <div class="sec-sub">Honest blockers are the most useful data we can collect. Please do not soften your answers.</div>
+  <div class="sec-title" data-i18n="s5.title">Concerns and blockers</div>
+  <div class="sec-sub" data-i18n="s5.sub">Honest blockers are the most useful data we can collect. Please do not soften your answers.</div>
 
   <div class="qc fade-card" id="qc13">
     <div class="qn">Q13</div>
-    <p class="qt">What would most likely stop you from subscribing to Vivrit? <span style="color:var(--ink3);font-size:13px;">(Choose up to 3)</span></p>
+    <p class="qt" data-i18n-html="q13.title">What would most likely stop you from subscribing to Vivrit? <span style="color:var(--ink3);font-size:13px;">(Choose up to 3)</span></p>
     <div class="opts">
-      <label class="opt"><input type="checkbox" name="q13" value="screen_time"><div class="check-sq"></div><span class="ol">My child already has enough screen time. Adding more feels wrong.</span></label>
-      <label class="opt"><input type="checkbox" name="q13" value="price"><div class="check-sq"></div><span class="ol">The price is beyond what I am comfortable spending</span></label>
-      <label class="opt"><input type="checkbox" name="q13" value="trust"><div class="check-sq"></div><span class="ol">I would need to see the product before trusting it with my child</span></label>
-      <label class="opt"><input type="checkbox" name="q13" value="child_resist"><div class="check-sq"></div><span class="ol">My child would prefer YouTube. Getting them to switch feels hard.</span></label>
-      <label class="opt"><input type="checkbox" name="q13" value="not_urgent"><div class="check-sq"></div><span class="ol">My child is young and this does not feel urgent yet</span></label>
-      <label class="opt"><input type="checkbox" name="q13" value="nothing"><div class="check-sq"></div><span class="ol">Nothing would stop me. I would sign up right away.</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="screen_time"><div class="check-sq"></div><span class="ol" data-i18n="q13.o1">My child already has enough screen time. Adding more feels wrong.</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="price"><div class="check-sq"></div><span class="ol" data-i18n="q13.o2">The price is beyond what I am comfortable spending</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="trust"><div class="check-sq"></div><span class="ol" data-i18n="q13.o3">I would need to see the product before trusting it with my child</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="child_resist"><div class="check-sq"></div><span class="ol" data-i18n="q13.o4">My child would prefer YouTube. Getting them to switch feels hard.</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="not_urgent"><div class="check-sq"></div><span class="ol" data-i18n="q13.o5">My child is young and this does not feel urgent yet</span></label>
+      <label class="opt"><input type="checkbox" name="q13" value="nothing"><div class="check-sq"></div><span class="ol" data-i18n="q13.o6">Nothing would stop me. I would sign up right away.</span></label>
     </div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc14">
     <div class="qn sky">Q14</div>
-    <p class="qt">How worried are you that an app like Vivrit would just add to screen time rather than replace existing passive viewing?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q14.title">How worried are you that an app like Vivrit would just add to screen time rather than replace existing passive viewing?</span><span class="qreq">*</span></p>
     <div class="lk">
-      <div class="lk-ends"><span class="lk-end">Not worried</span><span class="lk-end">Very worried</span></div>
+      <div class="lk-ends"><span class="lk-end" data-i18n="q14.lo">Not worried</span><span class="lk-end" data-i18n="q14.hi">Very worried</span></div>
       <div class="lk-track">
         <button type="button" class="lkb" data-q="14" data-v="1">1</button>
         <button type="button" class="lkb" data-q="14" data-v="2">2</button>
@@ -540,54 +547,54 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
         <button type="button" class="lkb" data-q="14" data-v="5">5</button>
       </div>
     </div>
-    <div class="err-txt">Please select a rating.</div>
+    <div class="err-txt" data-i18n="err.rating">Please select a rating.</div>
   </div>
 
   <!-- SECTION 6 -->
   <div class="sec"><span class="sec-n sky">06</span><div class="sec-line"></div></div>
-  <div class="sec-title">Your verdict</div>
-  <div class="sec-sub">Say exactly what you think. Critical feedback is more valuable than polite validation.</div>
+  <div class="sec-title" data-i18n="s6.title">Your verdict</div>
+  <div class="sec-sub" data-i18n="s6.sub">Say exactly what you think. Critical feedback is more valuable than polite validation.</div>
 
   <div class="qc fade-card" id="qc15">
     <div class="qn">Q15</div>
-    <p class="qt">What would Vivrit need to get right above everything else for you to pay for it?</p>
+    <p class="qt" data-i18n="q15.title">What would Vivrit need to get right above everything else for you to pay for it?</p>
     <textarea class="q-input" name="q15" placeholder="Share your honest thoughts…" rows="4"></textarea>
   </div>
 
   <div class="qc sky-card fade-card" id="qc16">
     <div class="qn sky">Q16</div>
-    <p class="qt">Is there anything about this concept that makes you uncomfortable or sceptical?</p>
-    <p class="qs">No judgment here. Honest concerns are the most valuable thing you can share.</p>
+    <p class="qt" data-i18n="q16.title">Is there anything about this concept that makes you uncomfortable or sceptical?</p>
+    <p class="qs" data-i18n="q16.sub">No judgment here. Honest concerns are the most valuable thing you can share.</p>
     <textarea class="q-input" name="q16" placeholder="Share your honest thoughts…" rows="3"></textarea>
   </div>
 
   <div class="qc fade-card" id="qc17">
     <div class="qn">Q17</div>
-    <p class="qt">If Vivrit launched tomorrow, how likely would you be to recommend it to another parent?<span class="qreq">*</span></p>
-    <p class="qs">0 means you would actively warn others away. 10 means you would recommend it without hesitation.</p>
+    <p class="qt"><span data-i18n="q17.title">If Vivrit launched tomorrow, how likely would you be to recommend it to another parent?</span><span class="qreq">*</span></p>
+    <p class="qs" data-i18n="q17.sub">0 means you would actively warn others away. 10 means you would recommend it without hesitation.</p>
     <div class="nps-track" id="nps-track"></div>
-    <div class="nps-ends"><span>Not at all</span><span>Neutral</span><span>Absolutely</span></div>
+    <div class="nps-ends"><span data-i18n="q17.lo">Not at all</span><span data-i18n="q17.mid">Neutral</span><span data-i18n="q17.hi">Absolutely</span></div>
     <input type="hidden" name="q17" id="q17val">
-    <div class="err-txt">Please select a score.</div>
+    <div class="err-txt" data-i18n="err.score">Please select a score.</div>
   </div>
 
   <div class="qc sky-card fade-card" id="qc18">
     <div class="qn sky">Q18</div>
-    <p class="qt">Overall, what is your honest assessment of this idea?<span class="qreq">*</span></p>
+    <p class="qt"><span data-i18n="q18.title">Overall, what is your honest assessment of this idea?</span><span class="qreq">*</span></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="strong_yes"><div class="radio-dot"></div><div><div class="ol">Strong yes. Real problem, right solution.</div><div class="os">I would be among the first to use or recommend this</div></div></label>
-      <label class="opt"><input type="radio" name="q18" value="yes_if"><div class="radio-dot"></div><div><div class="ol">Yes, if it delivers on its promises</div><div class="os">The idea is right. Execution has to be excellent.</div></div></label>
-      <label class="opt"><input type="radio" name="q18" value="niche"><div class="radio-dot"></div><div><div class="ol">Niche but valid</div><div class="os">Not right for us, but I can see clearly who it is for</div></div></label>
-      <label class="opt"><input type="radio" name="q18" value="wrong_approach"><div class="radio-dot"></div><div><div class="ol">Right problem, different solution needed</div><div class="os">The issue is real but this approach does not quite fit</div></div></label>
-      <label class="opt"><input type="radio" name="q18" value="no_problem"><div class="radio-dot"></div><span class="ol">I do not see what problem this is solving</span></label>
+      <label class="opt"><input type="radio" name="q18" value="strong_yes"><div class="radio-dot"></div><div><div class="ol" data-i18n="q18.o1">Strong yes. Real problem, right solution.</div><div class="os" data-i18n="q18.o1s">I would be among the first to use or recommend this</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="yes_if"><div class="radio-dot"></div><div><div class="ol" data-i18n="q18.o2">Yes, if it delivers on its promises</div><div class="os" data-i18n="q18.o2s">The idea is right. Execution has to be excellent.</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="niche"><div class="radio-dot"></div><div><div class="ol" data-i18n="q18.o3">Niche but valid</div><div class="os" data-i18n="q18.o3s">Not right for us, but I can see clearly who it is for</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="wrong_approach"><div class="radio-dot"></div><div><div class="ol" data-i18n="q18.o4">Right problem, different solution needed</div><div class="os" data-i18n="q18.o4s">The issue is real but this approach does not quite fit</div></div></label>
+      <label class="opt"><input type="radio" name="q18" value="no_problem"><div class="radio-dot"></div><span class="ol" data-i18n="q18.o5">I do not see what problem this is solving</span></label>
     </div>
-    <div class="err-txt">Please select one option.</div>
+    <div class="err-txt" data-i18n="err.one">Please select one option.</div>
   </div>
 
   <!-- SECTION 7: FREE TRIAL -->
   <div class="sec"><span class="sec-n">07</span><div class="sec-line"></div></div>
-  <div class="sec-title">Get early access to Vivrit</div>
-  <div class="sec-sub">Join our WhatsApp community for first access to the experience and early updates.</div>
+  <div class="sec-title" data-i18n="s7.title">Try Vivrit for free</div>
+  <div class="sec-sub" data-i18n="s7.sub">Everything below is completely optional. But if you are curious, we would love to put the product in your hands first.</div>
 
   <div class="trial-card">
     <div class="trial-grid"></div>
@@ -597,49 +604,49 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
         <input type="checkbox" name="wants_trial" value="yes" id="trial-toggle" onchange="toggleTrialFields()">
         <div class="trial-check"></div>
         <div>
-          <div class="trial-interest-txt">Yes, I want to test Vivrit for free before it launches</div>
-          <div class="trial-interest-sub">We will give you one full term of access at no cost. All we ask for is honest feedback.</div>
+          <div class="trial-interest-txt" data-i18n="tr.check">Yes, I want to test Vivrit for free before it launches</div>
+          <div class="trial-interest-sub" data-i18n="tr.checksub">We will give you one full term of access at no cost. All we ask for is honest feedback.</div>
         </div>
       </label>
 
       <div id="trial-fields" style="display:none;">
-        <div class="trial-badge"><span class="trial-badge-dot"></span>Optional details</div>
-        <p class="trial-sub">Share as much or as little as you like. Every field below is optional. We only use this to reach out with your free access link.</p>
+        <div class="trial-badge"><span class="trial-badge-dot"></span><span data-i18n="tr.badge">Optional details</span></div>
+        <p class="trial-sub" data-i18n="tr.sub">Share as much or as little as you like. Every field below is optional. We only use this to reach out with your free access link.</p>
         <div class="trial-fields">
           <div class="trial-row">
             <div class="trial-field">
-              <div class="trial-label">Your name</div>
-              <input class="trial-input" type="text" name="trial_name" placeholder="First name is enough">
+              <div class="trial-label" data-i18n="tr.name">Your name</div>
+              <input class="trial-input" type="text" name="trial_name" placeholder="First name is enough" data-i18n-ph="tr.nameph">
             </div>
             <div class="trial-field">
-              <div class="trial-label">Your child's age</div>
-              <input class="trial-input" type="text" name="trial_child_age" placeholder="e.g. 4 years old">
+              <div class="trial-label" data-i18n="tr.cage">Your child's age</div>
+              <input class="trial-input" type="text" name="trial_child_age" placeholder="e.g. 4 years old" data-i18n-ph="tr.cageph">
             </div>
           </div>
           <div class="trial-row">
             <div class="trial-field">
-              <div class="trial-label">City</div>
-              <input class="trial-input" type="text" name="trial_city" placeholder="Where are you based?">
+              <div class="trial-label" data-i18n="tr.city">City</div>
+              <input class="trial-input" type="text" name="trial_city" placeholder="Where are you based?" data-i18n-ph="tr.cityph">
             </div>
             <div class="trial-field">
-              <div class="trial-label">School or preschool name</div>
-              <input class="trial-input" type="text" name="trial_school" placeholder="Optional">
+              <div class="trial-label" data-i18n="tr.school">School or preschool name</div>
+              <input class="trial-input" type="text" name="trial_school" placeholder="Optional" data-i18n-ph="tr.schoolph">
             </div>
           </div>
           <div class="trial-field">
-            <div class="trial-label">Email address</div>
+            <div class="trial-label" data-i18n="tr.email">Email address</div>
             <input class="trial-input" type="email" name="trial_email" id="trial-email" placeholder="your@email.com" oninput="validateEmail(this)">
-            <div id="trial-email-err" style="font-size:11px;color:var(--red);margin-top:5px;display:none;">Please enter a valid email address.</div>
+            <div id="trial-email-err" style="font-size:11px;color:var(--red);margin-top:5px;display:none;" data-i18n="err.email">Please enter a valid email address.</div>
           </div>
           <div class="trial-field">
-            <div class="trial-label">Phone number</div>
+            <div class="trial-label" data-i18n="tr.phone">Phone number</div>
             <div class="phone-row">
               <select class="trial-input phone-prefix" name="trial_phone_prefix" id="phone-prefix"></select>
               <input class="trial-input" type="tel" name="trial_phone" placeholder="Phone number">
             </div>
           </div>
         </div>
-        <div class="trial-note">We will never share your details. No spam. Just a free access link and a short follow up call if you want one.</div>
+        <div class="trial-note" data-i18n="tr.note">We will never share your details. No spam. Just a free access link and a short follow up call if you want one.</div>
       </div>
     </div>
   </div>
@@ -652,13 +659,13 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
       </svg>
       <span class="prog-pct" id="rpct">0%</span>
     </div>
-    <div class="submit-title">You are done.</div>
-    <div class="submit-sub">Your responses are anonymous unless you chose to share your details above. Every answer shapes what Vivrit builds and whether we build it at all.</div>
+    <div class="submit-title" data-i18n="sub.title">You are done.</div>
+    <div class="submit-sub" data-i18n="sub.sub">Your responses are anonymous unless you chose to share your details above. Every answer shapes what Vivrit builds and whether we build it at all.</div>
     <button type="button" class="btn-sub" onclick="submitForm()">
-      Submit my responses
+      <span data-i18n="sub.btn">Submit my responses</span>
       <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3,8 13,8"/><polyline points="9,4 13,8 9,12"/></svg>
     </button>
-    <div class="submit-note">Anonymous by default. No account needed. Research use only.</div>
+    <div class="submit-note" data-i18n="sub.note">Anonymous by default. No account needed. Research use only.</div>
   </div>
 
 </div>
@@ -668,18 +675,18 @@ textarea.q-input{resize:vertical;min-height:96px;line-height:1.65;}
     <div class="ty-logo-mark">🌱</div>
     <div class="ty-logo-name">Vivrit<span>.</span></div>
   </div>
-  <h2 class="ty-title">Thank you.</h2>
-  <p class="ty-sub">Your responses are in. Every honest answer helps us build something genuinely useful for young children and their families, or tells us clearly when to stop.</p>
+  <h2 class="ty-title" data-i18n="ty.title">Thank you.</h2>
+  <p class="ty-sub" data-i18n="ty.sub">Your responses are in. Every honest answer helps us build something genuinely useful for young children and their families, or tells us clearly when to stop.</p>
   <div class="ty-trial-note" id="ty-trial-note" style="display:none;">
-    <strong>We received your free trial request.</strong> A member of our team will reach out within 2 to 3 working days. Thank you for being an early believer in this.
+    <strong data-i18n="ty.trial1">We received your free trial request.</strong><span data-i18n="ty.trial2"> A member of our team will reach out within 2 to 3 working days. Thank you for being an early believer in this.</span>
   </div>
   <div class="ty-share">
-    <div class="ty-share-txt">Know a parent who would find this useful?</div>
+    <div class="ty-share-txt" data-i18n="ty.share">Know a parent who would find this useful?</div>
     <button class="btn-share" onclick="shareForm()">
       <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="3" r="1.5"/><circle cx="12" cy="13" r="1.5"/><circle cx="3" cy="8" r="1.5"/><line x1="10.6" y1="3.9" x2="4.4" y2="7.1"/><line x1="4.4" y1="8.9" x2="10.6" y2="12.1"/></svg>
-      Share now
+      <span data-i18n="ty.sharebtn">Share now</span>
     </button>
-    <div class="ty-copied" id="ty-copied">Link copied to clipboard!</div>
+    <div class="ty-copied" id="ty-copied" data-i18n="ty.copied">Link copied to clipboard!</div>
   </div>
 </div>
 
@@ -929,7 +936,7 @@ async function submitForm(){
 
   const btn=document.querySelector('.btn-sub');
   btn.disabled=true;
-  btn.textContent='Submitting…';
+  btn.querySelector('[data-i18n="sub.btn"]').textContent='Submitting…';
 
   try{
     const res=await fetch('/.netlify/functions/submit',{
@@ -941,7 +948,7 @@ async function submitForm(){
   }catch(e){
     console.error('Submission error:',e);
     btn.disabled=false;
-    btn.textContent='Submit my responses';
+    btn.querySelector('[data-i18n="sub.btn"]').textContent=TRANS[currentLang]['sub.btn']||'Submit my responses';
     alert('Something went wrong. Please try again.');
     return;
   }
@@ -955,6 +962,234 @@ async function submitForm(){
   document.getElementById('ty').classList.add('show');
   document.getElementById('pfill').style.width='100%';
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Language
+let currentLang='en';
+const TRANS={
+en:{
+  'hero.pill':'Parent and Educator Survey',
+  'hero.title':'Built for little learners.<br><em>Shaped by you.</em>',
+  'hero.sub':'Vivrit helps children aged 2 to 10 grow through purposeful screen time. Three minutes of your honest thoughts will shape whether and how we build this for preschools and young families.',
+  'hero.anon':'Anonymous','hero.time':'3 to 4 minutes','hero.qs':'18 questions',
+  's1.title':'About you','s1.sub':'A quick picture of who you are and who you are speaking for.',
+  'q1.title':'What is your role?',
+  'q1.o1':'Parent or caregiver','q1.o1s':'My child is aged 2 to 10',
+  'q1.o2':'Preschool or daycare owner or principal','q1.o2s':'I run or lead an early childhood centre',
+  'q1.o3':'Preschool or primary teacher','q1.o3s':'I work with children aged 2 to 10 daily',
+  'q1.o4':'I am both a parent and an educator',
+  'q2.title':'How old is your child or the children you work with?',
+  'q2.o1':'Ages 2 to 3','q2.o2':'Ages 3 to 5','q2.o3':'Ages 6 to 8','q2.o4':'Ages 9 to 10',
+  'q3.title':'How much screen time does your child or the children in your care get on average each day?',
+  'q3.o1':'Less than 1 hour','q3.o2':'1 to 2 hours','q3.o3':'2 to 4 hours','q3.o4':'More than 4 hours',
+  's2.title':'The problem','s2.sub':'We want to understand how strongly you feel this. There are no right answers here.',
+  'q4.title':'How concerned are you about the quality of what young children consume on screen?',
+  'q4.lo':'Not concerned','q4.hi':'Very concerned',
+  'q5.title':'What kind of content do young children in your home or classroom most commonly watch?',
+  'q5.sub':'Select all that apply.',
+  'q5.o1':'YouTube Kids or regular YouTube','q5.o2':'Netflix, Disney Plus or similar OTT shows',
+  'q5.o3':"Educational apps like BYJU's or Khan Academy Kids",'q5.o4':'Mobile games',
+  'q5.o5':'We keep screen time very limited',
+  'q6.title':'Do you notice unregulated screen time affecting young children in visible ways?',
+  'q6.o1':'Yes, clearly','q6.o1s':'Shorter attention, emotional meltdowns, sleep issues',
+  'q6.o2':'Somewhat. I notice it but cannot always separate the cause.',
+  'q6.o3':'Not sure. I do not have enough information yet.',
+  'q6.o4':'No. I do not see a clear connection.',
+  's3.title':'Meet Vivrit','s3.sub':'Read this carefully. Then tell us what you honestly think.',
+  'c.eyebrow':'What Vivrit is',
+  'c.body':'A child development platform built for children aged 2 to 10. It replaces passive content like YouTube Kids and Netflix cartoons with psychologist-certified stories, interactive games, and focus building activities. Every piece of content is matched to your child\'s age and developmental stage. Parents get a weekly dashboard showing what their child engaged with and what it is building in them. Preschools partner with Vivrit to extend their learning philosophy into the home.',
+  'c.p1':'Built for ages 2 to 10','c.p2':'Psychologist certified','c.p3':'Age matched stories and games',
+  'c.p4':'Weekly parent insight dashboard','c.p5':'Replaces passive OTT content','c.p6':'No ads and no algorithm',
+  'q7.title':'What is your honest first reaction to Vivrit?',
+  'q7.o1':'This is exactly what I have been looking for','q7.o1s':'I would sign up or recommend it right away',
+  'q7.o2':'Interesting. I would want to know more before deciding.',
+  'q7.o3':'Maybe. I have real questions about how it works in practice.',
+  'q7.o4':'Unlikely that I would use or recommend this.','q7.o5':'Definitely not for us.',
+  'q8.title':'How much does this idea resonate with you?',
+  'q8.sub':"Your school's learning approach should not stop when your child gets home. Vivrit carries it forward into every evening and every weekend.",
+  'q8.lo':'Does not resonate','q8.hi':'Resonates strongly',
+  'q9.title':'How credible is it to you that content reviewed by child psychologists would be meaningfully different?',
+  'q9.lo':'Not credible at all','q9.hi':'Very credible',
+  's4.title':'Pricing','s4.sub':'Four honest options. Pick what reflects your real view, not what sounds reasonable.',
+  'q10.title':'How much does your family currently spend on learning or enrichment apps per month?',
+  'q10.o1':'Nothing. We do not pay for apps.','q10.o2':'Under 500 rupees',
+  'q10.o3':'500 to 1500 rupees','q10.o4':'More than 1500 rupees. We invest actively in ed-tech.',
+  'q11.title':'Which Vivrit plan feels right for your family?',
+  'q11.sub':'All plans include full access to age matched stories, games and the parent dashboard. Higher plans add more content depth and personalisation.',
+  'q11.starter':'Starter','q11.grow':'Grow','q11.thrive':'Thrive','q11.family':'Family',
+  'q11.popular':'POPULAR','q11.bestval':'BEST VALUE',
+  'q11.s1':'200 plus stories and activities','q11.s2':'Age matched content for 1 child','q11.s3':'Weekly parent summary',
+  'q11.g1':'500 plus stories, games and brain activities','q11.g2':'2 child profiles','q11.g3':'Emotion Explorer sessions','q11.g4':'School curriculum tags',
+  'q11.t1':'Full content library','q11.t2':'3 child profiles','q11.t3':'Focus and attention game tracks','q11.t4':'Developmental milestone reports','q11.t5':'Priority support',
+  'q11.f1':'Everything in Thrive','q11.f2':'Up to 5 child profiles','q11.f3':'Monthly 1 on 1 child development check in','q11.f4':'Early access to new content',
+  'q12.title':'How does Vivrit pricing compare to what you spend on similar enrichment for your child?',
+  'q12.o1':'Much less than a typical class or activity','q12.o2':'Similar to one book box or outing per month',
+  'q12.o3':'Feels high for a digital product','q12.o4':'Too expensive regardless of what is included',
+  's5.title':'Concerns and blockers','s5.sub':'Honest blockers are the most useful data we can collect. Please do not soften your answers.',
+  'q13.title':'What would most likely stop you from subscribing to Vivrit? <span style="color:var(--ink3);font-size:13px;">(Choose up to 3)</span>',
+  'q13.o1':'My child already has enough screen time. Adding more feels wrong.',
+  'q13.o2':'The price is beyond what I am comfortable spending',
+  'q13.o3':'I would need to see the product before trusting it with my child',
+  'q13.o4':'My child would prefer YouTube. Getting them to switch feels hard.',
+  'q13.o5':'My child is young and this does not feel urgent yet',
+  'q13.o6':'Nothing would stop me. I would sign up right away.',
+  'q14.title':'How worried are you that an app like Vivrit would just add to screen time rather than replace existing passive viewing?',
+  'q14.lo':'Not worried','q14.hi':'Very worried',
+  's6.title':'Your verdict','s6.sub':'Say exactly what you think. Critical feedback is more valuable than polite validation.',
+  'q15.title':'What would Vivrit need to get right above everything else for you to pay for it?',
+  'q16.title':'Is there anything about this concept that makes you uncomfortable or sceptical?',
+  'q16.sub':'No judgment here. Honest concerns are the most valuable thing you can share.',
+  'q17.title':'If Vivrit launched tomorrow, how likely would you be to recommend it to another parent?',
+  'q17.sub':'0 means you would actively warn others away. 10 means you would recommend it without hesitation.',
+  'q17.lo':'Not at all','q17.mid':'Neutral','q17.hi':'Absolutely',
+  'q18.title':'Overall, what is your honest assessment of this idea?',
+  'q18.o1':'Strong yes. Real problem, right solution.','q18.o1s':'I would be among the first to use or recommend this',
+  'q18.o2':'Yes, if it delivers on its promises','q18.o2s':'The idea is right. Execution has to be excellent.',
+  'q18.o3':'Niche but valid','q18.o3s':'Not right for us, but I can see clearly who it is for',
+  'q18.o4':'Right problem, different solution needed','q18.o4s':'The issue is real but this approach does not quite fit',
+  'q18.o5':'I do not see what problem this is solving',
+  's7.title':'Try Vivrit for free','s7.sub':'Everything below is completely optional. But if you are curious, we would love to put the product in your hands first.',
+  'tr.check':'Yes, I want to test Vivrit for free before it launches',
+  'tr.checksub':'We will give you one full term of access at no cost. All we ask for is honest feedback.',
+  'tr.badge':'Optional details',
+  'tr.sub':'Share as much or as little as you like. Every field below is optional. We only use this to reach out with your free access link.',
+  'tr.name':'Your name','tr.nameph':'First name is enough',
+  'tr.cage':"Your child's age",'tr.cageph':'e.g. 4 years old',
+  'tr.city':'City','tr.cityph':'Where are you based?',
+  'tr.school':'School or preschool name','tr.schoolph':'Optional',
+  'tr.email':'Email address','tr.phone':'Phone number',
+  'tr.note':'We will never share your details. No spam. Just a free access link and a short follow up call if you want one.',
+  'sub.title':'You are done.',
+  'sub.sub':'Your responses are anonymous unless you chose to share your details above. Every answer shapes what Vivrit builds and whether we build it at all.',
+  'sub.btn':'Submit my responses','sub.note':'Anonymous by default. No account needed. Research use only.',
+  'ty.title':'Thank you.',
+  'ty.sub':'Your responses are in. Every honest answer helps us build something genuinely useful for young children and their families, or tells us clearly when to stop.',
+  'ty.trial1':'We received your free trial request.','ty.trial2':' A member of our team will reach out within 2 to 3 working days. Thank you for being an early believer in this.',
+  'ty.share':'Know a parent who would find this useful?','ty.sharebtn':'Share now','ty.copied':'Link copied to clipboard!',
+  'err.one':'Please select one option.','err.rating':'Please select a rating.','err.score':'Please select a score.',
+  'err.email':'Please enter a valid email address.'
+},
+hi:{
+  'hero.pill':'अभिभावक और शिक्षक सर्वेक्षण',
+  'hero.title':'छोटे सीखने वालों के लिए बना।<br><em>आपसे आकार पाया।</em>',
+  'hero.sub':'विव्रित 2 से 10 वर्ष के बच्चों को उद्देश्यपूर्ण स्क्रीन समय से विकसित होने में मदद करता है। आपके तीन मिनट के ईमानदार विचार यह तय करेंगे कि हम यह प्रीस्कूल और युवा परिवारों के लिए बनाएं या नहीं।',
+  'hero.anon':'गुमनाम','hero.time':'3 से 4 मिनट','hero.qs':'18 प्रश्न',
+  's1.title':'आपके बारे में','s1.sub':'आप कौन हैं और किसकी ओर से बोल रहे हैं, इसकी एक संक्षिप्त झलक।',
+  'q1.title':'आपकी भूमिका क्या है?',
+  'q1.o1':'माता-पिता या देखभाल करने वाले','q1.o1s':'मेरा बच्चा 2 से 10 वर्ष का है',
+  'q1.o2':'प्रीस्कूल या डेकेयर मालिक या प्रिंसिपल','q1.o2s':'मैं एक प्रारंभिक बाल्यावस्था केंद्र चलाता/चलाती हूं',
+  'q1.o3':'प्रीस्कूल या प्राथमिक शिक्षक','q1.o3s':'मैं रोज़ 2 से 10 वर्ष के बच्चों के साथ काम करता/करती हूं',
+  'q1.o4':'मैं माता-पिता और शिक्षक दोनों हूं',
+  'q2.title':'आपका बच्चा या जिन बच्चों के साथ आप काम करते हैं, वे कितने वर्ष के हैं?',
+  'q2.o1':'2 से 3 वर्ष','q2.o2':'3 से 5 वर्ष','q2.o3':'6 से 8 वर्ष','q2.o4':'9 से 10 वर्ष',
+  'q3.title':'आपके बच्चे या आपकी देखभाल में बच्चों को औसतन प्रतिदिन कितना स्क्रीन समय मिलता है?',
+  'q3.o1':'1 घंटे से कम','q3.o2':'1 से 2 घंटे','q3.o3':'2 से 4 घंटे','q3.o4':'4 घंटे से अधिक',
+  's2.title':'समस्या','s2.sub':'हम समझना चाहते हैं कि आप इसे कितनी गहराई से महसूस करते हैं। यहां कोई सही या गलत उत्तर नहीं है।',
+  'q4.title':'आप छोटे बच्चों द्वारा स्क्रीन पर देखी जाने वाली सामग्री की गुणवत्ता को लेकर कितने चिंतित हैं?',
+  'q4.lo':'चिंतित नहीं','q4.hi':'बहुत चिंतित',
+  'q5.title':'आपके घर या कक्षा में छोटे बच्चे सबसे अधिक किस प्रकार की सामग्री देखते हैं?',
+  'q5.sub':'सभी लागू विकल्प चुनें।',
+  'q5.o1':'YouTube Kids या सामान्य YouTube','q5.o2':'Netflix, Disney Plus या इसी तरह के OTT शो',
+  'q5.o3':"BYJU's या Khan Academy Kids जैसे शैक्षिक ऐप्स",'q5.o4':'मोबाइल गेम्स',
+  'q5.o5':'हम स्क्रीन समय बहुत सीमित रखते हैं',
+  'q6.title':'क्या आप देखते हैं कि अनियंत्रित स्क्रीन समय छोटे बच्चों को दृश्यमान रूप से प्रभावित करता है?',
+  'q6.o1':'हां, स्पष्ट रूप से','q6.o1s':'कम ध्यान, भावनात्मक विस्फोट, नींद की समस्याएं',
+  'q6.o2':'कुछ हद तक। मैं इसे नोटिस करता/करती हूं लेकिन कारण हमेशा अलग नहीं कर पाता/पाती।',
+  'q6.o3':'निश्चित नहीं। मेरे पास अभी पर्याप्त जानकारी नहीं है।',
+  'q6.o4':'नहीं। मुझे कोई स्पष्ट संबंध नहीं दिखता।',
+  's3.title':'विव्रित से मिलें','s3.sub':'इसे ध्यान से पढ़ें। फिर हमें बताएं कि आप वास्तव में क्या सोचते हैं।',
+  'c.eyebrow':'विव्रित क्या है',
+  'c.body':'2 से 10 वर्ष के बच्चों के लिए बनाया गया एक बाल विकास मंच। यह YouTube Kids और Netflix कार्टून जैसी निष्क्रिय सामग्री को मनोवैज्ञानिक-प्रमाणित कहानियों, इंटरैक्टिव गेम्स और ध्यान-निर्माण गतिविधियों से बदलता है। हर सामग्री आपके बच्चे की उम्र और विकासात्मक चरण के अनुसार है। माता-पिता को साप्ताहिक डैशबोर्ड मिलता है जो दिखाता है कि उनका बच्चा क्या देख रहा था और यह उनमें क्या बना रहा है। प्रीस्कूल घर में अपनी सीखने की दर्शन को आगे बढ़ाने के लिए विव्रित के साथ साझेदारी करते हैं।',
+  'c.p1':'2 से 10 वर्ष के लिए','c.p2':'मनोवैज्ञानिक प्रमाणित','c.p3':'आयु-अनुकूलित कहानियां और गेम्स',
+  'c.p4':'साप्ताहिक अभिभावक डैशबोर्ड','c.p5':'निष्क्रिय OTT सामग्री की जगह','c.p6':'कोई विज्ञापन नहीं, कोई एल्गोरिदम नहीं',
+  'q7.title':'विव्रित के प्रति आपकी ईमानदार पहली प्रतिक्रिया क्या है?',
+  'q7.o1':'यही वह है जिसकी मुझे तलाश थी','q7.o1s':'मैं तुरंत साइन अप करूंगा/करूंगी या इसकी अनुशंसा करूंगा/करूंगी',
+  'q7.o2':'रोचक। निर्णय लेने से पहले मैं और जानना चाहूंगा/चाहूंगी।',
+  'q7.o3':'शायद। व्यवहार में यह कैसे काम करता है, इसके बारे में मेरे वास्तविक प्रश्न हैं।',
+  'q7.o4':'संभावना नहीं कि मैं इसका उपयोग करूं या इसकी अनुशंसा करूं।','q7.o5':'निश्चित रूप से हमारे लिए नहीं।',
+  'q8.title':'यह विचार आपके साथ कितना गूंजता है?',
+  'q8.sub':'आपके स्कूल का सीखने का दृष्टिकोण तब नहीं रुकना चाहिए जब आपका बच्चा घर आए। विव्रित इसे हर शाम और हर सप्ताहांत में आगे ले जाता है।',
+  'q8.lo':'गूंजता नहीं','q8.hi':'जोर से गूंजता है',
+  'q9.title':'आपको कितना विश्वसनीय लगता है कि बाल मनोवैज्ञानिकों द्वारा समीक्षित सामग्री सार्थक रूप से अलग होगी?',
+  'q9.lo':'बिल्कुल विश्वसनीय नहीं','q9.hi':'बहुत विश्वसनीय',
+  's4.title':'मूल्य निर्धारण','s4.sub':'चार ईमानदार विकल्प। वह चुनें जो आपका वास्तविक दृष्टिकोण दर्शाए, न कि जो उचित लगे।',
+  'q10.title':'आपका परिवार वर्तमान में प्रति माह शिक्षा या समृद्धि ऐप्स पर कितना खर्च करता है?',
+  'q10.o1':'कुछ नहीं। हम ऐप्स के लिए भुगतान नहीं करते।','q10.o2':'500 रुपये से कम',
+  'q10.o3':'500 से 1500 रुपये','q10.o4':'1500 रुपये से अधिक। हम एड-टेक में सक्रिय रूप से निवेश करते हैं।',
+  'q11.title':'कौन सी विव्रित योजना आपके परिवार के लिए सही लगती है?',
+  'q11.sub':'सभी योजनाओं में आयु-अनुकूलित कहानियां, गेम्स और पेरेंट डैशबोर्ड तक पूर्ण पहुंच शामिल है। उच्च योजनाएं अधिक सामग्री और वैयक्तिकरण जोड़ती हैं।',
+  'q11.starter':'स्टार्टर','q11.grow':'ग्रो','q11.thrive':'थ्राइव','q11.family':'फैमिली',
+  'q11.popular':'लोकप्रिय','q11.bestval':'सर्वश्रेष्ठ मूल्य',
+  'q11.s1':'200+ कहानियां और गतिविधियां','q11.s2':'1 बच्चे के लिए आयु-अनुकूलित सामग्री','q11.s3':'साप्ताहिक अभिभावक सारांश',
+  'q11.g1':'500+ कहानियां, गेम्स और मस्तिष्क गतिविधियां','q11.g2':'2 बच्चों के प्रोफाइल','q11.g3':'इमोशन एक्सप्लोरर सत्र','q11.g4':'स्कूल पाठ्यक्रम टैग',
+  'q11.t1':'पूर्ण सामग्री पुस्तकालय','q11.t2':'3 बच्चों के प्रोफाइल','q11.t3':'फोकस और ध्यान गेम ट्रैक','q11.t4':'विकासात्मक मील के पत्थर रिपोर्ट','q11.t5':'प्राथमिकता सहायता',
+  'q11.f1':'थ्राइव में सब कुछ','q11.f2':'5 बच्चों तक के प्रोफाइल','q11.f3':'मासिक 1-ऑन-1 बाल विकास जांच','q11.f4':'नई सामग्री तक जल्दी पहुंच',
+  'q12.title':'विव्रित की कीमत आपके बच्चे के लिए इसी तरह के संवर्धन पर खर्च की गई रकम से कैसे तुलना करती है?',
+  'q12.o1':'एक सामान्य कक्षा या गतिविधि से बहुत कम','q12.o2':'एक किताब बॉक्स या मासिक सैर के समान',
+  'q12.o3':'डिजिटल उत्पाद के लिए अधिक लगती है','q12.o4':'जो भी शामिल है उससे बहुत महंगी है',
+  's5.title':'चिंताएं और बाधाएं','s5.sub':'ईमानदार बाधाएं सबसे उपयोगी डेटा हैं जो हम एकत्र कर सकते हैं। कृपया अपने उत्तर नरम न करें।',
+  'q13.title':'विव्रित की सदस्यता लेने से आपको सबसे अधिक क्या रोकेगा? <span style="color:var(--ink3);font-size:13px;">(3 तक चुनें)</span>',
+  'q13.o1':'मेरे बच्चे के पास पहले से पर्याप्त स्क्रीन समय है। और जोड़ना गलत लगता है।',
+  'q13.o2':'कीमत मेरी सहजता से परे है',
+  'q13.o3':'अपने बच्चे के साथ इस पर भरोसा करने से पहले मुझे उत्पाद देखना होगा',
+  'q13.o4':'मेरा बच्चा YouTube पसंद करता है। उसे बदलवाना मुश्किल लगता है।',
+  'q13.o5':'मेरा बच्चा छोटा है और यह अभी जरूरी नहीं लगता',
+  'q13.o6':'कुछ भी नहीं रोकेगा। मैं अभी साइन अप करूंगा/करूंगी।',
+  'q14.title':'आप कितने चिंतित हैं कि विव्रित जैसा ऐप मौजूदा निष्क्रिय देखने की जगह लेने के बजाय स्क्रीन समय बढ़ाएगा?',
+  'q14.lo':'चिंतित नहीं','q14.hi':'बहुत चिंतित',
+  's6.title':'आपका निर्णय','s6.sub':'बिल्कुल वही कहें जो आप सोचते हैं। आलोचनात्मक प्रतिक्रिया विनम्र पुष्टि से अधिक मूल्यवान है।',
+  'q15.title':'भुगतान करने के लिए विव्रित को सबसे महत्वपूर्ण क्या सही करना होगा?',
+  'q16.title':'क्या इस अवधारणा के बारे में कुछ ऐसा है जो आपको असहज या संदिग्ध बनाता है?',
+  'q16.sub':'यहां कोई निर्णय नहीं। ईमानदार चिंताएं सबसे मूल्यवान चीज हैं जो आप साझा कर सकते हैं।',
+  'q17.title':'अगर विव्रित कल लॉन्च होता, तो आप इसे किसी अन्य माता-पिता को अनुशंसित करने की कितनी संभावना रखते हैं?',
+  'q17.sub':'0 का मतलब है कि आप सक्रिय रूप से दूसरों को चेतावनी देंगे। 10 का मतलब है कि आप बिना झिझक इसकी अनुशंसा करेंगे।',
+  'q17.lo':'बिल्कुल नहीं','q17.mid':'तटस्थ','q17.hi':'बिल्कुल',
+  'q18.title':'कुल मिलाकर, इस विचार के बारे में आपका ईमानदार मूल्यांकन क्या है?',
+  'q18.o1':'पक्का हां। वास्तविक समस्या, सही समाधान।','q18.o1s':'मैं इसका उपयोग या अनुशंसा करने वालों में पहला/पहली होऊंगा/होऊंगी',
+  'q18.o2':'हां, अगर यह अपने वादे पूरे करता है','q18.o2s':'विचार सही है। क्रियान्वयन उत्कृष्ट होना चाहिए।',
+  'q18.o3':'विशिष्ट लेकिन मान्य','q18.o3s':'हमारे लिए सही नहीं, लेकिन मैं स्पष्ट रूप से देख सकता/सकती हूं कि यह किसके लिए है',
+  'q18.o4':'सही समस्या, अलग समाधान चाहिए','q18.o4s':'समस्या वास्तविक है लेकिन यह दृष्टिकोण उचित नहीं है',
+  'q18.o5':'मुझे नहीं दिखता कि यह कौन सी समस्या हल कर रहा है',
+  's7.title':'विव्रित को मुफ्त में आज़माएं','s7.sub':'नीचे सब कुछ पूरी तरह वैकल्पिक है। लेकिन अगर आप उत्सुक हैं, तो हम आपके हाथों में उत्पाद देना पसंद करेंगे।',
+  'tr.check':'हां, मैं लॉन्च से पहले विव्रित को मुफ्त में आज़माना चाहता/चाहती हूं',
+  'tr.checksub':'हम आपको बिना किसी लागत के एक पूर्ण कार्यकाल की पहुंच देंगे। हम बस ईमानदार प्रतिक्रिया मांगते हैं।',
+  'tr.badge':'वैकल्पिक विवरण',
+  'tr.sub':'जितना चाहें साझा करें। नीचे हर फील्ड वैकल्पिक है। हम इसका उपयोग केवल आपके मुफ्त पहुंच लिंक के लिए करते हैं।',
+  'tr.name':'आपका नाम','tr.nameph':'पहला नाम पर्याप्त है',
+  'tr.cage':'आपके बच्चे की उम्र','tr.cageph':'जैसे 4 साल',
+  'tr.city':'शहर','tr.cityph':'आप कहां रहते हैं?',
+  'tr.school':'स्कूल या प्रीस्कूल का नाम','tr.schoolph':'वैकल्पिक',
+  'tr.email':'ईमेल पता','tr.phone':'फोन नंबर',
+  'tr.note':'हम आपका विवरण कभी साझा नहीं करेंगे। कोई स्पैम नहीं। बस एक मुफ्त पहुंच लिंक और एक छोटी फॉलो अप कॉल अगर आप चाहें।',
+  'sub.title':'आप कर चुके हैं।',
+  'sub.sub':'आपकी प्रतिक्रियाएं गुमनाम हैं जब तक कि आपने ऊपर अपना विवरण साझा करने का विकल्प न चुना हो। हर उत्तर यह आकार देता है कि विव्रित क्या बनाता है और क्या बनाता है।',
+  'sub.btn':'मेरी प्रतिक्रियाएं सबमिट करें','sub.note':'डिफ़ॉल्ट रूप से गुमनाम। कोई खाता आवश्यक नहीं। केवल शोध उपयोग।',
+  'ty.title':'धन्यवाद।',
+  'ty.sub':'आपकी प्रतिक्रियाएं आ गई हैं। हर ईमानदार उत्तर हमें छोटे बच्चों और उनके परिवारों के लिए कुछ वास्तव में उपयोगी बनाने में मदद करता है, या हमें स्पष्ट रूप से बताता है कि कब रुकना है।',
+  'ty.trial1':'हमें आपका मुफ्त परीक्षण अनुरोध मिल गया।','ty.trial2':' हमारी टीम का एक सदस्य 2 से 3 कार्य दिवसों के भीतर आपके एक्सेस लिंक के साथ संपर्क करेगा। इस पर विश्वास करने के लिए धन्यवाद।',
+  'ty.share':'क्या आप किसी माता-पिता को जानते हैं जिन्हें यह उपयोगी लगे?','ty.sharebtn':'अभी साझा करें','ty.copied':'लिंक क्लिपबोर्ड पर कॉपी हो गया!',
+  'err.one':'कृपया एक विकल्प चुनें।','err.rating':'कृपया एक रेटिंग चुनें।','err.score':'कृपया एक स्कोर चुनें।',
+  'err.email':'कृपया एक वैध ईमेल पता दर्ज करें।'
+}
+};
+
+function setLang(l){
+  currentLang=l;
+  document.getElementById('btn-en').classList.toggle('lt-active',l==='en');
+  document.getElementById('btn-hi').classList.toggle('lt-active',l==='hi');
+  const t=TRANS[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=t[el.dataset.i18n];
+    if(v!==undefined) el.textContent=v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const v=t[el.dataset.i18nHtml];
+    if(v!==undefined) el.innerHTML=v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const v=t[el.dataset.i18nPh];
+    if(v!==undefined) el.placeholder=v;
+  });
 }
 
 tick();
